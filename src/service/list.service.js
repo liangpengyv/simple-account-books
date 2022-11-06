@@ -6,7 +6,7 @@ export default {
       startTime,
       endTime,
     } = params
-    const response = bill
+    const response = bill.filter(item => item.time >= startTime && item.time <= endTime)
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)

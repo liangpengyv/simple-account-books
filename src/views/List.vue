@@ -3,15 +3,17 @@ import { ref } from 'vue';
 import listService from '../service/list.service'
 import useCategoryStore from '../stores/category';
 import { billType } from '../typing/bill.typing'
-import { getYearByTimeStamp, getMonthByTimeStamp } from '../utils/date-time.util'
+import FilterHeader from '../components/FilterHeader.vue';
+import { NTime } from 'naive-ui'
+import { getMonthStart, getMonthEnd } from '../utils/date-time.util';
 
 const categoryStore = useCategoryStore()
 const currentList = ref(null)
 
-function initList() {
+function initList(currentMonthAnyTimestamp) {
   const params = {
-    startTime: '',
-    endTime: '',
+    startTime: getMonthStart(currentMonthAnyTimestamp).getTime(),
+    endTime: getMonthEnd(currentMonthAnyTimestamp).getTime(),
   }
   listService.getList(params).then(res => {
     currentList.value = res
@@ -19,19 +21,25 @@ function initList() {
 }
 
 if (categoryStore.categories) {
-  initList()
+  initList(Date.now())
 } else {
   categoryStore.init().then(() => {
-    initList()
+    initList(Date.now())
   })
+}
+
+
+function onDateChange(timestamp) {
+  initList(timestamp)
 }
 </script>
 
 <template>
+  <FilterHeader :timestamp="Date.now()" @date-change="onDateChange" />
   <ul>
     <li v-for="(item, index) in currentList" :key="index">
       {{ billType[item.type] }}
-      {{ getYearByTimeStamp(item.time) + '.' + getMonthByTimeStamp(item.time) }}
+      <n-time :time="parseInt(item.time)" format="yyyy.MM" />
       {{ categoryStore.categoriesDict[item.category].name }}
       {{ item.amount.toFixed(2) }}
     </li>
