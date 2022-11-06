@@ -1,4 +1,4 @@
-import bill from './mock/bill.json'
+import billNew from './mock/bill-new.json'
 
 export default {
   getList: (params) => {
@@ -6,7 +6,7 @@ export default {
       startTime,
       endTime,
     } = params
-    const response = bill.filter(item => item.time >= startTime && item.time <= endTime)
+    const response = billNew.filter(item => item.time >= startTime && item.time <= endTime).reverse()
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)

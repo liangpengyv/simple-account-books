@@ -39,7 +39,7 @@ function onDateChange(timestamp) {
   <ul>
     <li v-for="(item, index) in currentList" :key="index">
       {{ billType[item.type] }}
-      <n-time :time="parseInt(item.time)" format="yyyy.MM" />
+      <n-time :time="parseInt(item.time)" format="MM.dd" />
       {{ categoryStore.categoriesDict[item.category].name }}
       {{ item.amount.toFixed(2) }}
     </li>
