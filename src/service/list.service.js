@@ -13,7 +13,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 500);
+      }, 300);
     })
   },
 
@@ -23,7 +23,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 500);
+      }, 300);
     })
   }
 }

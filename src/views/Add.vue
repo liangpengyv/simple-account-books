@@ -22,7 +22,7 @@ const categoryList = computed(() => {
   }
 })
 
-const typeValue = ref(parseInt(Object.keys(billType)[0]))
+const typeValue = ref(0)
 const timeValue = ref(getDateStart(Date.now()).getTime())
 const categoryValue = ref(categoryList.value[0]?.id)
 const amountValue = ref(undefined)
