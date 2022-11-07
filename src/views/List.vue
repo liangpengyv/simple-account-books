@@ -28,7 +28,6 @@ if (categoryStore.categories) {
   })
 }
 
-
 function onDateChange(timestamp) {
   initList(timestamp)
 }
