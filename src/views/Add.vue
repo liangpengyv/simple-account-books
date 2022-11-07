@@ -68,7 +68,7 @@ const onConfirmClick = () => {
     <n-radio-button v-for="item in categoryList" :key="item.id" :value="item.id" :label="item.name" />
   </n-radio-group>
   <n-date-picker v-model:value="timeValue" type="date" />
-  <n-button :loading="confirmButtonLoading" @click="onConfirmClick" type="primary">确定添加</n-button>
+  <n-button type="primary" :loading="confirmButtonLoading" @click="onConfirmClick">确定添加</n-button>
 </template>
 
 <style scoped>

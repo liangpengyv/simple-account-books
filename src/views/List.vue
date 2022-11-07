@@ -4,10 +4,12 @@ import listService from '../service/list.service'
 import useCategoryStore from '../stores/category';
 import { billType } from '../typing/bill.typing'
 import FilterHeader from '../components/FilterHeader.vue';
-import { NTime } from 'naive-ui'
+import { NTime, NSkeleton } from 'naive-ui'
 import { getMonthStart, getMonthEnd } from '../utils/date-time.util';
 
 const categoryStore = useCategoryStore()
+
+const billDateLoading = ref(false)
 const currentList = ref(null)
 
 const updateList = (currentMonthAnyTimestamp) => {
@@ -15,7 +17,9 @@ const updateList = (currentMonthAnyTimestamp) => {
     startTime: getMonthStart(currentMonthAnyTimestamp).getTime(),
     endTime: getMonthEnd(currentMonthAnyTimestamp).getTime(),
   }
+  billDateLoading.value = true
   listService.getList(params).then(res => {
+    billDateLoading.value = false
     currentList.value = res
   })
 }
@@ -23,6 +27,7 @@ const updateList = (currentMonthAnyTimestamp) => {
 if (categoryStore.categories) {
   updateList(Date.now())
 } else {
+  billDateLoading.value = true
   categoryStore.init().then(() => {
     updateList(Date.now())
   })
@@ -30,8 +35,9 @@ if (categoryStore.categories) {
 </script>
 
 <template>
-  <FilterHeader :timestamp="Date.now()" @date-change="updateList" />
-  <ul>
+  <FilterHeader :disabled="billDateLoading" :timestamp="Date.now()" @date-change="updateList" />
+  <n-skeleton v-if="billDateLoading" text :repeat="5" />
+  <ul v-else>
     <li v-for="(item, index) in currentList" :key="index">
       {{ billType[item.type] }}
       <n-time :time="parseInt(item.time)" format="MM.dd" />

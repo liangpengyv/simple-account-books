@@ -4,6 +4,10 @@ import { NDatePicker, NButton } from 'naive-ui'
 import { getPrevMonthCurrent, getNextMonthCurrent } from '../utils/date-time.util'
 
 const props = defineProps({
+  disabled: {
+    type: Boolean,
+    required: true
+  },
   timestamp: {
     type: Number,
     required: true
@@ -42,12 +46,12 @@ const onNextMonthClick = () => {
 </script>
 
 <template>
-  <n-date-picker v-model:value="timestampValue" type="month"
+  <n-date-picker v-model:value="timestampValue" type="month" :disabled="props.disabled"
     :is-date-disabled="current => (current > Date.now() || current < EARLIEST_DATE.getTime())"
     @update:value="onDateChange">
   </n-date-picker>
-  <n-button type="primary" @click="onPrevMonthClick">上个月</n-button>
-  <n-button type="primary" @click="onNextMonthClick">下个月</n-button>
+  <n-button type="primary" :disabled="props.disabled" @click="onPrevMonthClick">上个月</n-button>
+  <n-button type="primary" :disabled="props.disabled" @click="onNextMonthClick">下个月</n-button>
 </template>
 
 <style scoped>
