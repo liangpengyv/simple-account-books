@@ -15,5 +15,15 @@ export default {
         resolve(response)
       }, 500);
     })
+  },
+
+  addItem: (params) => {
+    billNew.push(params)
+    const response = true
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(response)
+      }, 500);
+    })
   }
 }

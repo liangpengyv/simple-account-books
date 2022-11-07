@@ -20,3 +20,9 @@ export const getNextMonthCurrent = (date) => {
   const current = new Date(date)
   return new Date(current.setMonth(current.getMonth() + 1))
 }
+
+export const getDateStart = (date) => {
+  const current = new Date(date)
+  current.setHours(0, 0, 0, 0)
+  return current
+}
