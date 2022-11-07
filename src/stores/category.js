@@ -14,6 +14,8 @@ const useCategoryStore = defineStore('category', () => {
     })
     return obj
   })
+  const categoriesOfExpenditure = computed(() => categories.value.filter(item => item.type === 0))
+  const categoriesOfIncome = computed(() => categories.value.filter(item => item.type === 1))
 
   const init = async () => {
     const res = await categoryService.getAll()
@@ -23,6 +25,8 @@ const useCategoryStore = defineStore('category', () => {
   return {
     categories,
     categoriesDict,
+    categoriesOfExpenditure,
+    categoriesOfIncome,
     init
   }
 })

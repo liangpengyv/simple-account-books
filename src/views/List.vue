@@ -34,25 +34,20 @@ const updateList = (currentMonthAnyTimestamp) => {
     })
   })
 }
-
-if (categoryStore.categories) {
-  updateList(Date.now())
-} else {
-  billDateLoading.value = true
-  categoryStore.init().then(() => {
-    updateList(Date.now())
-  })
-}
+updateList(Date.now())
 </script>
 
 <template>
   <FilterHeader :disabled="billDateLoading" :timestamp="Date.now()" @date-change="updateList" />
+
   <br />
+
   支出：￥
   <n-number-animation ref="numberAnimationInstRef" :from="0.0" :to="currentExpenditure" :precision="2"
     :duration="300" />
   收入：￥
   <n-number-animation ref="numberAnimationInstRef" :from="0.0" :to="currentIncome" :precision="2" :duration="300" />
+
   <n-skeleton v-if="billDateLoading" text :repeat="5" />
   <ul v-else>
     <li v-for="(item, index) in currentList" :key="index">

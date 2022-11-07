@@ -12,19 +12,16 @@ const router = useRouter()
 const categoryStore = useCategoryStore()
 
 const categoryList = computed(() => {
-  if (categoryStore.categories) {
-    return categoryStore.categories.filter(item => item.type === typeValue.value)
+  if (typeValue.value === 0) {
+    return categoryStore.categoriesOfExpenditure
   } else {
-    categoryStore.init().then(() => {
-      categoryValue.value = categoryStore.categories.filter(item => item.type === typeValue.value)[0].id
-    })
-    return []
+    return categoryStore.categoriesOfIncome
   }
 })
 
 const typeValue = ref(0)
 const timeValue = ref(getDateStart(Date.now()).getTime())
-const categoryValue = ref(categoryList.value[0]?.id)
+const categoryValue = ref(categoryList.value[0].id)
 const amountValue = ref(undefined)
 
 watch(typeValue, () => {
@@ -60,10 +57,13 @@ const onConfirmClick = () => {
       ￥
     </template>
   </n-input-number>
+
   <n-radio-group v-model:value="typeValue">
     <n-radio-button v-for="(value, key) in billType" :key="key" :value="parseInt(key)" :label="value" />
   </n-radio-group>
+
   <br />
+
   <n-radio-group v-model:value="categoryValue">
     <n-radio-button v-for="item in categoryList" :key="item.id" :value="item.id" :label="item.name" />
   </n-radio-group>

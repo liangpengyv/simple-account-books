@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { NDatePicker, NButton } from 'naive-ui'
 import { getPrevMonthCurrent, getNextMonthCurrent } from '../utils/date-time.util'
 
@@ -22,16 +22,16 @@ const EARLIEST_DATE_MESSAGE = '更早的账单，忘了他吧'
 const LATEST_DATE_MESSAGE = '下个月的账单，下个月再看'
 
 const timestampValue = ref(props.timestamp)
-const onDateChange = (timestamp) => {
-  emit('dateChange', timestamp)
-}
+watch(timestampValue, () => {
+  emit('dateChange', timestampValue.value)
+})
+
 const onPrevMonthClick = () => {
   const prevMonthCurrent = getPrevMonthCurrent(timestampValue.value).getTime()
   if (prevMonthCurrent < EARLIEST_DATE.getTime()) {
     $message.warning(EARLIEST_DATE_MESSAGE)
   } else {
     timestampValue.value = prevMonthCurrent
-    emit('dateChange', timestampValue.value)
   }
 }
 const onNextMonthClick = () => {
@@ -40,16 +40,14 @@ const onNextMonthClick = () => {
     $message.warning(LATEST_DATE_MESSAGE)
   } else {
     timestampValue.value = nextMonthCurrent
-    emit('dateChange', timestampValue.value)
   }
 }
 </script>
 
 <template>
-  <n-date-picker v-model:value="timestampValue" type="month" :disabled="props.disabled"
-    :is-date-disabled="current => (current > Date.now() || current < EARLIEST_DATE.getTime())"
-    @update:value="onDateChange">
-  </n-date-picker>
+  <n-date-picker v-model:value="timestampValue" :disabled="props.disabled" type="month"
+    :is-date-disabled="current => (current > Date.now() || current < EARLIEST_DATE.getTime())" />
+
   <n-button type="primary" :disabled="props.disabled" @click="onPrevMonthClick">上个月</n-button>
   <n-button type="primary" :disabled="props.disabled" @click="onNextMonthClick">下个月</n-button>
 </template>
