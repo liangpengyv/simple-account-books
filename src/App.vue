@@ -1,5 +1,8 @@
 <script setup>
 import Header from './components/Header.vue'
+import { useMessage } from 'naive-ui';
+
+window.$message = useMessage()
 </script>
 
 <template>

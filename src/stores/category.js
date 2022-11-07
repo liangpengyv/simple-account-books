@@ -6,7 +6,7 @@ const useCategoryStore = defineStore('category', () => {
   const categories = ref(null)
   const categoriesDict = reactive({})
 
-  function init() {
+  const init = () => {
     return new Promise(resolve => {
       categoryService.getAll().then(res => {
         categories.value = res

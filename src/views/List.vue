@@ -10,7 +10,7 @@ import { getMonthStart, getMonthEnd } from '../utils/date-time.util';
 const categoryStore = useCategoryStore()
 const currentList = ref(null)
 
-function initList(currentMonthAnyTimestamp) {
+const updateList = (currentMonthAnyTimestamp) => {
   const params = {
     startTime: getMonthStart(currentMonthAnyTimestamp).getTime(),
     endTime: getMonthEnd(currentMonthAnyTimestamp).getTime(),
@@ -21,20 +21,16 @@ function initList(currentMonthAnyTimestamp) {
 }
 
 if (categoryStore.categories) {
-  initList(Date.now())
+  updateList(Date.now())
 } else {
   categoryStore.init().then(() => {
-    initList(Date.now())
+    updateList(Date.now())
   })
-}
-
-function onDateChange(timestamp) {
-  initList(timestamp)
 }
 </script>
 
 <template>
-  <FilterHeader :timestamp="Date.now()" @date-change="onDateChange" />
+  <FilterHeader :timestamp="Date.now()" @date-change="updateList" />
   <ul>
     <li v-for="(item, index) in currentList" :key="index">
       {{ billType[item.type] }}
