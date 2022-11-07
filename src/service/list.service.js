@@ -6,7 +6,10 @@ export default {
       startTime,
       endTime,
     } = params
-    const response = billNew.filter(item => item.time >= startTime && item.time <= endTime).sort((a, b) => parseInt(b.time) - parseInt(a.time))
+    const response = billNew
+      .filter(item => item.time >= startTime && item.time <= endTime)
+      .sort((a, b) => parseInt(a.time) - parseInt(b.time))
+      .reverse()
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
