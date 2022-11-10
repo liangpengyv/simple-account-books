@@ -4,7 +4,7 @@ import { getPrevMonthCurrent, getNextMonthCurrent } from '../utils/date-time.uti
 import { computed } from '@vue/reactivity';
 
 const props = defineProps({
-  modelValue: {
+  value: {
     type: Number,
     required: true
   },
@@ -14,27 +14,27 @@ const props = defineProps({
   },
 })
 const emit = defineEmits([
-  'update:modelValue'
+  'update:value'
 ])
 
 const EARLIEST_DATE = new Date('2022.01')
 
-const prevMonthCurrent = computed(() => getPrevMonthCurrent(props.modelValue).getTime())
-const nextMonthCurrent = computed(() => getNextMonthCurrent(props.modelValue).getTime())
+const prevMonthCurrent = computed(() => getPrevMonthCurrent(props.value).getTime())
+const nextMonthCurrent = computed(() => getNextMonthCurrent(props.value).getTime())
 </script>
 
 <template>
-  <n-date-picker :value="props.modelValue" :disabled="props.disabled" type="month"
+  <n-date-picker :value="props.value" :disabled="props.disabled" type="month"
     :is-date-disabled="current => (current > Date.now() || current < EARLIEST_DATE.getTime())"
-    @update:value="value => emit('update:modelValue', value)" />
+    @update:value="value => emit('update:value', value)" />
 
   <n-button type="primary" :disabled="props.disabled || prevMonthCurrent < EARLIEST_DATE.getTime()"
-    @click="emit('update:modelValue', prevMonthCurrent)">
+    @click="emit('update:value', prevMonthCurrent)">
     上个月
   </n-button>
 
   <n-button type="primary" :disabled="props.disabled || nextMonthCurrent > Date.now()"
-    @click="emit('update:modelValue', nextMonthCurrent)">
+    @click="emit('update:value', nextMonthCurrent)">
     下个月
   </n-button>
 </template>

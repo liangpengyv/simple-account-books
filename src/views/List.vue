@@ -20,6 +20,7 @@ const currentMonthAnyTimestamp = ref(Date.now())
 const currentCategoryFilterList = ref([])
 
 const updateList = () => {
+  console.log('update...')
   const params = {
     startTime: getMonthStart(currentMonthAnyTimestamp.value).getTime(),
     endTime: getMonthEnd(currentMonthAnyTimestamp.value).getTime(),
@@ -42,8 +43,8 @@ const updateList = () => {
 }
 updateList()
 
-watch(currentMonthAnyTimestamp, () => updateList())
-watch(currentCategoryFilterList, () => updateList())
+const onUpdateMonthFilter = () => updateList()
+const onUpdateCategoriesFilter = () => updateList()
 
 const jumpCurrentMonth = () => {
   currentMonthAnyTimestamp.value = Date.now()
@@ -53,8 +54,10 @@ const jumpCurrentMonth = () => {
 </script>
 
 <template>
-  <MonthFilter v-model="currentMonthAnyTimestamp" :disabled="billDateLoading" />
-  <CategoriesFilter v-model="currentCategoryFilterList" :disabled="billDateLoading" />
+  <MonthFilter v-model:value="currentMonthAnyTimestamp" :disabled="billDateLoading"
+    @update:value="onUpdateMonthFilter" />
+  <CategoriesFilter v-model:value="currentCategoryFilterList" :disabled="billDateLoading"
+    @update:value="onUpdateCategoriesFilter" />
 
   <br />
 

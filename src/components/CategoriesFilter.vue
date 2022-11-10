@@ -4,7 +4,7 @@ import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox } from 'nai
 import useCategoryStore from '../stores/category';
 
 const props = defineProps({
-  modelValue: {
+  value: {
     type: Array,
     required: true,
   },
@@ -14,7 +14,7 @@ const props = defineProps({
   }
 })
 const emit = defineEmits([
-  'update:modelValue'
+  'update:value'
 ])
 
 const categoryStore = useCategoryStore()
@@ -31,9 +31,9 @@ const revertList = () => {
   checkedIncomeList.value = checkedIncomeListCopy
 }
 
-watch(() => props.modelValue, () => {
-  checkedExpenditureListCopy = props.modelValue.filter(item => categoriesIdOfExpenditure.value.includes(item))
-  checkedIncomeListCopy = props.modelValue.filter(item => categoriesIdOfIncome.value.includes(item))
+watch(() => props.value, () => {
+  checkedExpenditureListCopy = props.value.filter(item => categoriesIdOfExpenditure.value.includes(item))
+  checkedIncomeListCopy = props.value.filter(item => categoriesIdOfIncome.value.includes(item))
   revertList()
 })
 
@@ -47,13 +47,14 @@ const onResetClick = () => {
   checkedIncomeList.value = []
 }
 const onCompleteClick = () => {
-  emit('update:modelValue', [...checkedExpenditureList.value, ...checkedIncomeList.value])
+  emit('update:value', [...checkedExpenditureList.value, ...checkedIncomeList.value])
   active.value = false
 }
 </script>
 
 <template>
-  <n-button :disabled="props.disabled" :type="props.modelValue.length > 0 ? 'primary' : ''" @click="active = true">
+  <n-button :disabled="props.disabled" :type="props.value.length > 0 ? 'primary' : ''"
+    @click="active = true">
     展开
   </n-button>
   <n-drawer v-model:show="active" display-directive="show" :auto-focus="false" placement="bottom"
