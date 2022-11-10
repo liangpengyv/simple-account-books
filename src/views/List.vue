@@ -4,6 +4,7 @@ import listService from '../service/list.service'
 import useCategoryStore from '../stores/category';
 import { billType } from '../typing/bill.typing'
 import MonthFilter from '../components/MonthFilter.vue';
+import CategoriesFilter from '../components/CategoriesFilter.vue';
 import { NTime, NSkeleton, NNumberAnimation, NEmpty, NButton } from 'naive-ui'
 import { getMonthStart, getMonthEnd } from '../utils/date-time.util';
 
@@ -45,6 +46,11 @@ watch(currentMonthAnyTimestamp, () => {
   updateList()
 })
 
+const onCategoriesFilterChange = (categoryFilterList) => {
+  currentCategoryFilterList.value = categoryFilterList
+  updateList()
+}
+
 const jumpCurrentMonth = () => {
   currentMonthAnyTimestamp.value = Date.now()
   currentCategoryFilterList.value = []
@@ -54,6 +60,7 @@ const jumpCurrentMonth = () => {
 
 <template>
   <MonthFilter v-model="currentMonthAnyTimestamp" :disabled="billDateLoading" />
+  <CategoriesFilter :disabled="billDateLoading" @change="onCategoriesFilterChange" />
 
   <br />
 
