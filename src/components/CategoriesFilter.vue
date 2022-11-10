@@ -1,83 +1,73 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox } from 'naive-ui'
-import useCategoryStore from '../stores/category'
-import { computed } from '@vue/reactivity';
+import useCategoryStore from '../stores/category';
 
 const props = defineProps({
+  modelValue: {
+    type: Array,
+    required: true,
+  },
   disabled: {
     type: Boolean,
     required: true
-  },
+  }
 })
 const emit = defineEmits([
-  'change'
+  'update:modelValue'
 ])
 
 const categoryStore = useCategoryStore()
+const categoriesIdOfExpenditure = computed(() => categoryStore.categoriesOfExpenditure.map(item => item.id))
+const categoriesIdOfIncome = computed(() => categoryStore.categoriesOfIncome.map(item => item.id))
 
-let isAllExpenditureCopy = false
-let isAllIncomeCopy = false
 let checkedExpenditureListCopy = []
 let checkedIncomeListCopy = []
-
-const isAllExpenditure = ref(false)
-const isAllIncome = ref(false)
 const checkedExpenditureList = ref([])
 const checkedIncomeList = ref([])
 
-const resetFilterByInit = () => {
-  isAllExpenditure.value = false
-  isAllIncome.value = false
-  checkedExpenditureList.value = []
-  checkedIncomeList.value = []
-}
-const updateCopyByFilter = () => {
-  isAllExpenditureCopy = isAllExpenditure.value
-  isAllIncomeCopy = isAllIncome.value
-  checkedExpenditureListCopy = checkedExpenditureList.value
-  checkedIncomeListCopy = checkedIncomeList.value
-}
-const revertFilterByCopy = () => {
-  isAllExpenditure.value = isAllExpenditureCopy
-  isAllIncome.value = isAllIncomeCopy
+const revertList = () => {
   checkedExpenditureList.value = checkedExpenditureListCopy
   checkedIncomeList.value = checkedIncomeListCopy
 }
 
-const resultFilterList = computed(() => {
-  const computedExpenditureList = isAllExpenditure.value ? categoryStore.categoriesOfExpenditure.map(item => item.id) : checkedExpenditureList.value
-  const computedIncomeList = isAllIncome.value ? categoryStore.categoriesOfIncome.map(item => item.id) : checkedIncomeList.value
-  return [...computedExpenditureList, ...computedIncomeList]
+watch(() => props.modelValue, () => {
+  checkedExpenditureListCopy = props.modelValue.filter(item => categoriesIdOfExpenditure.value.includes(item))
+  checkedIncomeListCopy = props.modelValue.filter(item => categoriesIdOfIncome.value.includes(item))
+  revertList()
 })
 
 const active = ref(false)
-const hasFilter = ref(false)
 const onDrawerAfterLeave = () => {
-  revertFilterByCopy()
+  revertList()
 }
 
-const onCompleteFilterClick = () => {
-  updateCopyByFilter()
-  hasFilter.value = resultFilterList.value.length > 0
+const onResetClick = () => {
+  checkedExpenditureList.value = []
+  checkedIncomeList.value = []
+}
+const onCompleteClick = () => {
+  emit('update:modelValue', [...checkedExpenditureList.value, ...checkedIncomeList.value])
   active.value = false
-  emit('change', resultFilterList.value)
 }
 </script>
 
 <template>
-  <n-button :disabled="props.disabled" :type="hasFilter ? 'primary' : ''" @click="active = true">
+  <n-button :disabled="props.disabled" :type="props.modelValue.length > 0 ? 'primary' : ''" @click="active = true">
     展开
   </n-button>
   <n-drawer v-model:show="active" display-directive="show" :auto-focus="false" placement="bottom"
     @after-leave="onDrawerAfterLeave">
     <n-drawer-content title="选择分类条件">
-      <n-checkbox v-model:checked="isAllExpenditure" :disabled="props.disabled"
-        @update:checked="checkedExpenditureList = []">
+
+      <n-checkbox :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
+        :indeterminate="checkedExpenditureList.length > 0 && checkedExpenditureList.length < categoryStore.categoriesOfExpenditure.length"
+        :disabled="props.disabled"
+        @update:checked="value => checkedExpenditureList = value ? categoriesIdOfExpenditure : []">
         全部支出
       </n-checkbox>
-      <n-checkbox-group v-model:value="checkedExpenditureList" :disabled="props.disabled"
-        @update:value="isAllExpenditure = false">
+
+      <n-checkbox-group v-model:value="checkedExpenditureList" :disabled="props.disabled">
         <n-checkbox v-for="item in categoryStore.categoriesOfExpenditure" :key="item.id" :value="item.id">
           {{ item.name }}
         </n-checkbox>
@@ -85,11 +75,13 @@ const onCompleteFilterClick = () => {
 
       <br />
 
-      <n-checkbox v-model:checked="isAllIncome" :disabled="props.disabled" @update:checked="checkedIncomeList = []">
+      <n-checkbox :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
+        :indeterminate="checkedIncomeList.length > 0 && checkedIncomeList.length < categoryStore.categoriesOfIncome.length"
+        :disabled="props.disabled" @update:checked="value => checkedIncomeList = value ? categoriesIdOfIncome : []">
         全部收入
       </n-checkbox>
-      <n-checkbox-group v-model:value="checkedIncomeList" :disabled="props.disabled"
-        @update:value="isAllIncome = false">
+
+      <n-checkbox-group v-model:value="checkedIncomeList" :disabled="props.disabled">
         <n-checkbox v-for="item in categoryStore.categoriesOfIncome" :key="item.id" :value="item.id">
           {{ item.name }}
         </n-checkbox>
@@ -97,8 +89,8 @@ const onCompleteFilterClick = () => {
 
       <br />
 
-      <n-button :disabled="props.disabled" @click="resetFilterByInit">重置</n-button>
-      <n-button type="primary" :disabled="props.disabled" @click="onCompleteFilterClick">完成</n-button>
+      <n-button :disabled="props.disabled" @click="onResetClick">重置</n-button>
+      <n-button type="primary" :disabled="props.disabled" @click="onCompleteClick">完成</n-button>
     </n-drawer-content>
   </n-drawer>
 </template>

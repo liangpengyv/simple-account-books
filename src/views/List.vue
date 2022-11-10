@@ -42,14 +42,8 @@ const updateList = () => {
 }
 updateList()
 
-watch(currentMonthAnyTimestamp, () => {
-  updateList()
-})
-
-const onCategoriesFilterChange = (categoryFilterList) => {
-  currentCategoryFilterList.value = categoryFilterList
-  updateList()
-}
+watch(currentMonthAnyTimestamp, () => updateList())
+watch(currentCategoryFilterList, () => updateList())
 
 const jumpCurrentMonth = () => {
   currentMonthAnyTimestamp.value = Date.now()
@@ -60,7 +54,7 @@ const jumpCurrentMonth = () => {
 
 <template>
   <MonthFilter v-model="currentMonthAnyTimestamp" :disabled="billDateLoading" />
-  <CategoriesFilter :disabled="billDateLoading" @change="onCategoriesFilterChange" />
+  <CategoriesFilter v-model="currentCategoryFilterList" :disabled="billDateLoading" />
 
   <br />
 
