@@ -14,10 +14,11 @@ const currentList = ref(null)
 const currentExpenditure = ref(0)
 const currentIncome = ref(0)
 
-const updateList = (currentMonthAnyTimestamp) => {
+const updateList = (currentMonthAnyTimestamp, categoryFilterList) => {
   const params = {
     startTime: getMonthStart(currentMonthAnyTimestamp).getTime(),
     endTime: getMonthEnd(currentMonthAnyTimestamp).getTime(),
+    categoryFilterList
   }
   billDateLoading.value = true
   listService.getList(params).then(res => {

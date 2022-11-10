@@ -5,11 +5,13 @@ export default {
     const {
       startTime,
       endTime,
+      categoryFilterList,
     } = params
-    const response = billNew
-      .filter(item => item.time >= startTime && item.time <= endTime)
-      .sort((a, b) => parseInt(a.time) - parseInt(b.time))
-      .reverse()
+    const result01 = billNew.filter(item => item.time >= startTime && item.time <= endTime)
+    const result02 = categoryFilterList && categoryFilterList.length > 0 ? result01.filter(item => categoryFilterList.includes(item.category)) : result01
+    const result03 = result02.sort((a, b) => parseInt(a.time) - parseInt(b.time))
+    const result04 = result03.reverse()
+    const response = result04
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
