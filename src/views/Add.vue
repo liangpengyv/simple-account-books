@@ -8,7 +8,6 @@ import listService from '../service/list.service';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
-
 const categoryStore = useCategoryStore()
 
 const categoryList = computed(() => {

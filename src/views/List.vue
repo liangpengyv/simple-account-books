@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import listService from '../service/list.service'
 import useCategoryStore from '../stores/category';
 import { billType } from '../typing/bill.typing'
