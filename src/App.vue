@@ -28,9 +28,6 @@ categoryStore.init().then(() => dataAlready.value = true)
         <li>
           <RouterLink to="/add">记一笔</RouterLink>
         </li>
-        <li>
-          <RouterLink to="/statistics">收支统计</RouterLink>
-        </li>
       </ul>
       <RouterView />
     </main>

@@ -5,9 +5,11 @@ import useCategoryStore from '../stores/category';
 import { billType } from '../typing/bill.typing'
 import MonthFilter from '../components/MonthFilter.vue';
 import CategoriesFilter from '../components/CategoriesFilter.vue';
-import { NTime, NSkeleton, NNumberAnimation, NEmpty, NButton } from 'naive-ui'
+import { NTime, NSkeleton, NNumberAnimation, NEmpty, NButton, statisticProps } from 'naive-ui'
 import { getMonthStart, getMonthEnd } from '../utils/date-time.util';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const categoryStore = useCategoryStore()
 
 const billDateLoading = ref(false)
@@ -53,6 +55,10 @@ const jumpCurrentMonth = () => {
   currentCategoryFilterList.value = []
   updateList()
 }
+
+const onStatisticsClick = () => {
+  router.push({ name: 'statistics', query: { timestamp: currentMonthAnyTimestamp.value } })
+}
 </script>
 
 <template>
@@ -60,6 +66,10 @@ const jumpCurrentMonth = () => {
     @update:value="onUpdateMonthFilter" />
   <CategoriesFilter v-model:value="currentCategoryFilterList" :disabled="billDateLoading"
     @update:value="onUpdateCategoriesFilter" />
+
+  <br />
+
+  <n-button @click="onStatisticsClick">分析</n-button>
 
   <br />
 
