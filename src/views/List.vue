@@ -92,6 +92,8 @@ const onStatisticsClick = () => {
       <n-button size="small" @click="jumpCurrentMonth">看看本月全部账单</n-button>
     </template>
   </n-empty>
+
+  <RouterLink to="/add">记一笔</RouterLink>
 </template>
 
 <style scoped>

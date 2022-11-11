@@ -21,14 +21,6 @@ categoryStore.init().then(() => dataAlready.value = true)
       <Header />
     </header>
     <main>
-      <ul>
-        <li>
-          <RouterLink to="/list">收支</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/add">记一笔</RouterLink>
-        </li>
-      </ul>
       <RouterView />
     </main>
   </template>

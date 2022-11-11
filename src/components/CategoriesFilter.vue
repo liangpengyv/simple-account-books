@@ -55,7 +55,7 @@ const onCompleteClick = () => {
 <template>
   <n-button :disabled="props.disabled" :type="props.value.length > 0 ? 'primary' : ''"
     @click="active = true">
-    展开
+    筛选
   </n-button>
   <n-drawer v-model:show="active" display-directive="show" :auto-focus="false" placement="bottom"
     @after-leave="onDrawerAfterLeave">
