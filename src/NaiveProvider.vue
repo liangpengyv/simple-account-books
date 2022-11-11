@@ -1,8 +1,9 @@
 <script setup>
 import App from './App.vue'
 import { computed } from '@vue/reactivity';
-import { NMessageProvider } from 'naive-ui';
 import { NConfigProvider, zhCN, dateZhCN, useOsTheme, darkTheme } from 'naive-ui'
+import { NGlobalStyle } from 'naive-ui';
+import { NMessageProvider } from 'naive-ui';
 
 const osThemeRef = useOsTheme()
 const theme = computed(() => osThemeRef.value === 'dark' ? darkTheme : null)
@@ -10,6 +11,7 @@ const theme = computed(() => osThemeRef.value === 'dark' ? darkTheme : null)
 
 <template>
   <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme">
+    <n-global-style />
     <n-message-provider>
       <App />
     </n-message-provider>
