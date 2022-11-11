@@ -36,4 +36,8 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(to => {
+  document.title = to.meta.title + ' - 简易记账本'
+})
+
 export default router
