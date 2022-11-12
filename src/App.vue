@@ -1,11 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import AppHeader from './components/AppHeader.vue'
-import { NSpin, useMessage } from 'naive-ui'
+import { NSpin } from 'naive-ui'
 import useCategoryStore from './stores/category'
-
-// 全局挂载
-window.$message = useMessage()
 
 // 必要的前提数据初始化
 const dataAlready = ref(false)

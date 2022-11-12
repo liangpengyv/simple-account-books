@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton } from 'naive-ui'
+import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton, useMessage } from 'naive-ui'
 import { billType } from '../typing/bill.typing'
 import useCategoryStore from '../stores/category'
 import { getDateStart } from '../utils/date-time.util'
@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const categoryStore = useCategoryStore()
+const message = useMessage()
 
 const categoryList = computed(() => {
   if (typeValue.value === 0) {
@@ -30,7 +31,7 @@ watch(typeValue, () => {
 const confirmButtonLoading = ref(false)
 const onConfirmClick = () => {
   if (!amountValue.value) {
-    $message.warning('金额必须大于0.00元')
+    message.warning('金额必须大于0.00元')
   } else {
     const params = {
       type: typeValue.value,
@@ -40,10 +41,9 @@ const onConfirmClick = () => {
     }
     confirmButtonLoading.value = true
     listService.addItem(params).then(res => {
-      if (res) {
-        $message.success('添加成功')
-        router.push({ name: 'bill-list' })
-      }
+      confirmButtonLoading.value = false
+      message.success('添加成功')
+      router.push({ name: 'bill-list' })
     })
   }
 }
