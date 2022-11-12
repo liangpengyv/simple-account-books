@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox } from 'naive-ui'
-import useCategoryStore from '../stores/category';
+import useCategoryStore from '../stores/category'
 
 const props = defineProps({
   value: {
     type: Array,
-    required: true,
+    required: true
   },
   disabled: {
     type: Boolean,
@@ -53,45 +53,82 @@ const onCompleteClick = () => {
 </script>
 
 <template>
-  <n-button :disabled="props.disabled" :type="props.value.length > 0 ? 'primary' : ''"
-    @click="active = true">
+  <n-button
+    :disabled="props.disabled"
+    :type="props.value.length > 0 ? 'primary' : ''"
+    @click="active = true"
+  >
     筛选
   </n-button>
-  <n-drawer v-model:show="active" display-directive="show" :auto-focus="false" placement="bottom"
-    @after-leave="onDrawerAfterLeave">
+  <n-drawer
+    v-model:show="active"
+    display-directive="show"
+    :auto-focus="false"
+    placement="bottom"
+    @after-leave="onDrawerAfterLeave"
+  >
     <n-drawer-content title="选择分类条件">
-
-      <n-checkbox :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
+      <n-checkbox
+        :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
         :indeterminate="checkedExpenditureList.length > 0 && checkedExpenditureList.length < categoryStore.categoriesOfExpenditure.length"
         :disabled="props.disabled"
-        @update:checked="value => checkedExpenditureList = value ? categoriesIdOfExpenditure : []">
+        @update:checked="value => checkedExpenditureList = value ? categoriesIdOfExpenditure : []"
+      >
         全部支出
       </n-checkbox>
 
-      <n-checkbox-group v-model:value="checkedExpenditureList" :disabled="props.disabled">
-        <n-checkbox v-for="item in categoryStore.categoriesOfExpenditure" :key="item.id" :value="item.id">
+      <n-checkbox-group
+        v-model:value="checkedExpenditureList"
+        :disabled="props.disabled"
+      >
+        <n-checkbox
+          v-for="item in categoryStore.categoriesOfExpenditure"
+          :key="item.id"
+          :value="item.id"
+        >
           {{ item.name }}
         </n-checkbox>
       </n-checkbox-group>
 
-      <br />
+      <br>
 
-      <n-checkbox :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
+      <n-checkbox
+        :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
         :indeterminate="checkedIncomeList.length > 0 && checkedIncomeList.length < categoryStore.categoriesOfIncome.length"
-        :disabled="props.disabled" @update:checked="value => checkedIncomeList = value ? categoriesIdOfIncome : []">
+        :disabled="props.disabled"
+        @update:checked="value => checkedIncomeList = value ? categoriesIdOfIncome : []"
+      >
         全部收入
       </n-checkbox>
 
-      <n-checkbox-group v-model:value="checkedIncomeList" :disabled="props.disabled">
-        <n-checkbox v-for="item in categoryStore.categoriesOfIncome" :key="item.id" :value="item.id">
+      <n-checkbox-group
+        v-model:value="checkedIncomeList"
+        :disabled="props.disabled"
+      >
+        <n-checkbox
+          v-for="item in categoryStore.categoriesOfIncome"
+          :key="item.id"
+          :value="item.id"
+        >
           {{ item.name }}
         </n-checkbox>
       </n-checkbox-group>
 
-      <br />
+      <br>
 
-      <n-button :disabled="props.disabled" @click="onResetClick">重置</n-button>
-      <n-button type="primary" :disabled="props.disabled" @click="onCompleteClick">完成</n-button>
+      <n-button
+        :disabled="props.disabled"
+        @click="onResetClick"
+      >
+        重置
+      </n-button>
+      <n-button
+        type="primary"
+        :disabled="props.disabled"
+        @click="onCompleteClick"
+      >
+        完成
+      </n-button>
     </n-drawer-content>
   </n-drawer>
 </template>

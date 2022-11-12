@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton } from 'naive-ui';
-import { billType } from '../typing/bill.typing';
+import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton } from 'naive-ui'
+import { billType } from '../typing/bill.typing'
 import useCategoryStore from '../stores/category'
 import { getDateStart } from '../utils/date-time.util'
-import listService from '../service/list.service';
-import { useRouter } from 'vue-router';
+import listService from '../service/list.service'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const categoryStore = useCategoryStore()
@@ -51,23 +51,49 @@ const onConfirmClick = () => {
 
 <template>
   交易金额
-  <n-input-number v-model:value="amountValue" clearable :precision="2" :min="0" :max="99999999999" placeholder="0.00">
+  <n-input-number
+    v-model:value="amountValue"
+    clearable
+    :precision="2"
+    :min="0"
+    :max="99999999999"
+    placeholder="0.00"
+  >
     <template #prefix>
       ￥
     </template>
   </n-input-number>
 
   <n-radio-group v-model:value="typeValue">
-    <n-radio-button v-for="(value, key) in billType" :key="key" :value="parseInt(key)" :label="value" />
+    <n-radio-button
+      v-for="(value, key) in billType"
+      :key="key"
+      :value="parseInt(key)"
+      :label="value"
+    />
   </n-radio-group>
 
-  <br />
+  <br>
 
   <n-radio-group v-model:value="categoryValue">
-    <n-radio-button v-for="item in categoryList" :key="item.id" :value="item.id" :label="item.name" />
+    <n-radio-button
+      v-for="item in categoryList"
+      :key="item.id"
+      :value="item.id"
+      :label="item.name"
+    />
   </n-radio-group>
-  <n-date-picker v-model:value="timeValue" type="date" />
-  <n-button type="primary" :loading="confirmButtonLoading" @click="onConfirmClick">确定添加</n-button>
+  <n-date-picker
+    v-model:value="timeValue"
+    type="date"
+  />
+  <n-button
+    type="primary"
+    :loading="confirmButtonLoading"
+    @click="onConfirmClick"
+  >
+    确定添加
+  </n-button>
 </template>
 
 <style scoped>

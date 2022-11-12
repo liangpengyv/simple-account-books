@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import Header from './components/Header.vue'
-import { NSpin } from 'naive-ui';
-import { useMessage } from 'naive-ui';
+import { NSpin, useMessage } from 'naive-ui'
 import useCategoryStore from './stores/category'
 
 // 全局挂载
@@ -11,11 +10,11 @@ window.$message = useMessage()
 // 必要的前提数据初始化
 const dataAlready = ref(false)
 const categoryStore = useCategoryStore()
-categoryStore.init().then(() => dataAlready.value = true)
+categoryStore.init().then(() => (dataAlready.value = true))
 </script>
 
 <template>
-  <n-spin v-if="!dataAlready"></n-spin>
+  <n-spin v-if="!dataAlready" />
   <template v-else>
     <header>
       <Header />

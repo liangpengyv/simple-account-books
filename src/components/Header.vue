@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { NButton, NIcon } from 'naive-ui';
+import { NButton, NIcon } from 'naive-ui'
 
 const route = useRoute()
 const router = useRouter()
@@ -8,10 +8,22 @@ const router = useRouter()
 
 <template>
   <div class="wrapper">
-    <n-button class="back-button" v-if="route.name !== 'list'" @click="router.back" text>
+    <n-button
+      v-if="route.name !== 'list'"
+      class="back-button"
+      text
+      @click="router.back"
+    >
       <n-icon size="20">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-          <path d="M17.77 3.77L16 2L6 12l10 10l1.77-1.77L9.54 12z" fill="currentColor"></path>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17.77 3.77L16 2L6 12l10 10l1.77-1.77L9.54 12z"
+            fill="currentColor"
+          />
         </svg>
       </n-icon>
     </n-button>
