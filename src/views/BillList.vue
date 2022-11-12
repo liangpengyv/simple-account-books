@@ -135,5 +135,9 @@ const onStatisticsClick = () => {
 </template>
 
 <style scoped>
-
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 8px;
+}
 </style>

@@ -101,15 +101,9 @@ const nextMonthCurrent = computed(() => getNextMonthCurrent(props.value).getTime
   text-align: center;
 }
 
-.n-date-picker :deep(.n-input__suffix) {
-  display: none;
-}
-
+.n-date-picker :deep(.n-input__suffix),
+.n-date-picker :deep(.n-input__state-border),
 .n-date-picker :deep(.n-input__border) {
-  display: none;
-}
-
-.n-date-picker :deep(.n-input__state-border) {
   display: none;
 }
 

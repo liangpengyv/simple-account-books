@@ -1,18 +1,26 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { NButton, NIcon } from 'naive-ui'
+import { NButton, NIcon, NCard } from 'naive-ui'
 
 const route = useRoute()
 const router = useRouter()
+
+const onBackClick = () => {
+  router.back()
+}
 </script>
 
 <template>
-  <div class="app-header">
+  <n-card
+    class="app-header"
+    embedded
+    :bordered="false"
+  >
     <n-button
-      v-if="route.name !== 'list'"
+      v-if="route.name !== 'bill-list'"
       class="back-button"
       text
-      @click="router.back"
+      @click="onBackClick"
     >
       <n-icon size="20">
         <svg
@@ -28,7 +36,7 @@ const router = useRouter()
       </n-icon>
     </n-button>
     <span class="title">{{ route.meta.title }}</span>
-  </div>
+  </n-card>
 </template>
 
 <style scoped>
@@ -37,6 +45,10 @@ const router = useRouter()
   height: 48px;
   text-align: center;
   position: relative;
+}
+
+.app-header :deep(.n-card__content) {
+  padding: 0;
 }
 
 .back-button {

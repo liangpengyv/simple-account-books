@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox } from 'naive-ui'
+import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox, NIcon } from 'naive-ui'
 import useCategoryStore from '../stores/category'
 
 const props = defineProps({
@@ -54,17 +54,36 @@ const onCompleteClick = () => {
 
 <template>
   <n-button
+    class="open-button"
+    text
+    icon-placement="right"
     :disabled="props.disabled"
     :type="props.value.length > 0 ? 'primary' : ''"
     @click="active = true"
   >
-    筛选
+    <template #icon>
+      <n-icon :size="16">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 320 512"
+        >
+          <path
+            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4l96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+            fill="currentColor"
+          />
+        </svg>
+      </n-icon>
+    </template>
+    筛选<span v-show="props.value.length > 0">...</span>
   </n-button>
+
   <n-drawer
     v-model:show="active"
     display-directive="show"
     :auto-focus="false"
     placement="bottom"
+    default-height="90%"
     @after-leave="onDrawerAfterLeave"
   >
     <n-drawer-content title="选择分类条件">
@@ -134,5 +153,13 @@ const onCompleteClick = () => {
 </template>
 
 <style scoped>
+.open-button {
+  vertical-align: middle;
+  padding: 2px 4px;
+}
 
+.open-button:focus,
+.open-button:hover {
+  color: var(--n-text-color);
+}
 </style>

@@ -23,5 +23,9 @@ categoryStore.init().then(() => (dataAlready.value = true))
 </template>
 
 <style scoped>
-
+.n-spin-body {
+  display: block;
+  text-align: center;
+  padding-top: 32px;
+}
 </style>
