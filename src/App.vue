@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import Header from './components/Header.vue'
+import AppHeader from './components/AppHeader.vue'
 import { NSpin, useMessage } from 'naive-ui'
 import useCategoryStore from './stores/category'
 
@@ -17,7 +17,7 @@ categoryStore.init().then(() => (dataAlready.value = true))
   <n-spin v-if="!dataAlready" />
   <template v-else>
     <header>
-      <Header />
+      <AppHeader />
     </header>
     <main>
       <RouterView />

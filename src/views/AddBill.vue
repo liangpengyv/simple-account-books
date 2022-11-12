@@ -42,7 +42,7 @@ const onConfirmClick = () => {
     listService.addItem(params).then(res => {
       if (res) {
         $message.success('添加成功')
-        router.push({ name: 'list' })
+        router.push({ name: 'bill-list' })
       }
     })
   }

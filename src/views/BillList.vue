@@ -57,7 +57,7 @@ const jumpCurrentMonth = () => {
 }
 
 const onStatisticsClick = () => {
-  router.push({ name: 'statistics', query: { timestamp: currentMonthAnyTimestamp.value } })
+  router.push({ name: 'bill-statistics', query: { timestamp: currentMonthAnyTimestamp.value } })
 }
 </script>
 
@@ -129,7 +129,7 @@ const onStatisticsClick = () => {
     </template>
   </n-empty>
 
-  <RouterLink to="/add">
+  <RouterLink to="/add-bill">
     记一笔
   </RouterLink>
 </template>

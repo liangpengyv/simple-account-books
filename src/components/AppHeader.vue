@@ -7,7 +7,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="app-header">
     <n-button
       v-if="route.name !== 'list'"
       class="back-button"
@@ -32,7 +32,7 @@ const router = useRouter()
 </template>
 
 <style scoped>
-.wrapper {
+.app-header {
   width: 100%;
   height: 48px;
   text-align: center;

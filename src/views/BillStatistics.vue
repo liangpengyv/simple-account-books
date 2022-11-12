@@ -32,7 +32,7 @@ const updateStatisticsList = () => {
 updateStatisticsList()
 
 const onUpdateMonthFilter = () => {
-  router.replace({ name: 'statistics', query: { timestamp: currentMonthAnyTimestamp.value } })
+  router.replace({ name: 'bill-statistics', query: { timestamp: currentMonthAnyTimestamp.value } })
   updateStatisticsList()
 }
 </script>

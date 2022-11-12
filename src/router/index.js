@@ -3,28 +3,28 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    redirect: { name: 'list' }
+    redirect: { name: 'bill-list' }
   },
   {
-    path: '/list',
-    name: 'list',
-    component: () => import('../views/List.vue'),
+    path: '/bill-list',
+    name: 'bill-list',
+    component: () => import('../views/BillList.vue'),
     meta: {
       title: '收支'
     }
   },
   {
-    path: '/add',
-    name: 'add',
-    component: () => import('../views/Add.vue'),
+    path: '/add-bill',
+    name: 'add-bill',
+    component: () => import('../views/AddBill.vue'),
     meta: {
       title: '记一笔'
     }
   },
   {
-    path: '/statistics',
-    name: 'statistics',
-    component: () => import('../views/Statistics.vue'),
+    path: '/bill-statistics',
+    name: 'bill-statistics',
+    component: () => import('../views/BillStatistics.vue'),
     meta: {
       title: '收支统计'
     }
