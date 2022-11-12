@@ -9,13 +9,13 @@ export default {
     } = params
     const resultFilterTime = bill.filter(item => item.time >= startTime && item.time <= endTime)
     const resultFilterCategory = categoryFilterList && categoryFilterList.length > 0 ? resultFilterTime.filter(item => categoryFilterList.includes(item.category)) : resultFilterTime
-    const resultSortByAse = resultFilterCategory.sort((a, b) => parseInt(a.time) - parseInt(b.time))  // 为保证排序稳定性，所以先通过 sort 函数获取“正序”结果，然后再翻转
+    const resultSortByAse = resultFilterCategory.sort((a, b) => parseInt(a.time) - parseInt(b.time)) // 为保证排序稳定性，所以先通过 sort 函数获取“正序”结果，然后再翻转
     const resultReverse = resultSortByAse.reverse()
     const response = resultReverse
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 300);
+      }, 300)
     })
   },
 
@@ -25,7 +25,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 300);
+      }, 300)
     })
   },
 
@@ -51,7 +51,7 @@ export default {
       })
 
       const result = {
-        total: total,
+        total,
         group: []
       }
       Object.entries(groupSource).forEach(item => {
@@ -78,7 +78,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 300);
+      }, 300)
     })
   }
 }

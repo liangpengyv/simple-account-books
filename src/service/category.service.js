@@ -6,7 +6,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(response)
-      }, 300);
+      }, 300)
     })
   }
 }
