@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton, useMessage, NCard, NDivider } from 'naive-ui'
+import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton, useMessage, NCard } from 'naive-ui'
 import { billType } from '../typing/bill.typing'
 import useCategoryStore from '../stores/category'
 import { getDateStart } from '../utils/date-time.util'

@@ -78,9 +78,8 @@ const onCompleteClick = () => {
     筛选<span v-show="props.value.length > 0">...</span>
   </n-button>
 
-  <n-el
+  <n-drawer
     v-model:show="active"
-    :tag="NDrawer"
     class="categories-filter"
     display-directive="show"
     :auto-focus="false"
@@ -89,72 +88,6 @@ const onCompleteClick = () => {
     @after-leave="onDrawerAfterLeave"
   >
     <n-drawer-content title="选择分类条件">
-      <n-el
-        tag="h4"
-        class="type-title"
-      >
-        支出
-      </n-el>
-      <n-checkbox
-        :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
-        :indeterminate="checkedExpenditureList.length > 0 && checkedExpenditureList.length < categoryStore.categoriesOfExpenditure.length"
-        :disabled="props.disabled"
-        @update:checked="value => checkedExpenditureList = value ? categoriesIdOfExpenditure : []"
-      >
-        全部支出
-      </n-checkbox>
-
-      <n-checkbox-group
-        v-model:value="checkedExpenditureList"
-        :disabled="props.disabled"
-      >
-        <n-checkbox
-          v-for="item in categoryStore.categoriesOfExpenditure"
-          :key="item.id"
-          :value="item.id"
-        >
-          {{ item.name }}
-        </n-checkbox>
-        <n-checkbox
-          v-for="item in ((3 - (categoryStore.categoriesOfExpenditure.length % 3)) % 3)"
-          :key="item"
-          class="checkbox-placeholder"
-        />
-      </n-checkbox-group>
-
-      <n-el
-        tag="h4"
-        class="type-title"
-      >
-        收入
-      </n-el>
-      <n-checkbox
-        :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
-        :indeterminate="checkedIncomeList.length > 0 && checkedIncomeList.length < categoryStore.categoriesOfIncome.length"
-        :disabled="props.disabled"
-        @update:checked="value => checkedIncomeList = value ? categoriesIdOfIncome : []"
-      >
-        全部收入
-      </n-checkbox>
-
-      <n-checkbox-group
-        v-model:value="checkedIncomeList"
-        :disabled="props.disabled"
-      >
-        <n-checkbox
-          v-for="item in categoryStore.categoriesOfIncome"
-          :key="item.id"
-          :value="item.id"
-        >
-          {{ item.name }}
-        </n-checkbox>
-        <n-checkbox
-          v-for="item in ((3 - (categoryStore.categoriesOfIncome.length % 3)) % 3)"
-          :key="item"
-          class="checkbox-placeholder"
-        />
-      </n-checkbox-group>
-
       <template #footer>
         <n-button
           :disabled="props.disabled"
@@ -172,8 +105,71 @@ const onCompleteClick = () => {
           完成
         </n-button>
       </template>
+      <n-el>
+        <h4 class="type-title">
+          支出
+        </h4>
+
+        <n-checkbox
+          :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
+          :indeterminate="checkedExpenditureList.length > 0 && checkedExpenditureList.length < categoryStore.categoriesOfExpenditure.length"
+          :disabled="props.disabled"
+          @update:checked="value => checkedExpenditureList = value ? categoriesIdOfExpenditure : []"
+        >
+          全部支出
+        </n-checkbox>
+
+        <n-checkbox-group
+          v-model:value="checkedExpenditureList"
+          :disabled="props.disabled"
+        >
+          <n-checkbox
+            v-for="item in categoryStore.categoriesOfExpenditure"
+            :key="item.id"
+            :value="item.id"
+          >
+            {{ item.name }}
+          </n-checkbox>
+          <n-checkbox
+            v-for="item in ((3 - (categoryStore.categoriesOfExpenditure.length % 3)) % 3)"
+            :key="item"
+            class="checkbox-placeholder"
+          />
+        </n-checkbox-group>
+
+        <h4 class="type-title">
+          收入
+        </h4>
+
+        <n-checkbox
+          :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
+          :indeterminate="checkedIncomeList.length > 0 && checkedIncomeList.length < categoryStore.categoriesOfIncome.length"
+          :disabled="props.disabled"
+          @update:checked="value => checkedIncomeList = value ? categoriesIdOfIncome : []"
+        >
+          全部收入
+        </n-checkbox>
+
+        <n-checkbox-group
+          v-model:value="checkedIncomeList"
+          :disabled="props.disabled"
+        >
+          <n-checkbox
+            v-for="item in categoryStore.categoriesOfIncome"
+            :key="item.id"
+            :value="item.id"
+          >
+            {{ item.name }}
+          </n-checkbox>
+          <n-checkbox
+            v-for="item in ((3 - (categoryStore.categoriesOfIncome.length % 3)) % 3)"
+            :key="item"
+            class="checkbox-placeholder"
+          />
+        </n-checkbox-group>
+      </n-el>
     </n-drawer-content>
-  </n-el>
+  </n-drawer>
 </template>
 
 <style scoped>
