@@ -11,21 +11,34 @@ categoryStore.init().then(() => (dataAlready.value = true))
 </script>
 
 <template>
-  <n-spin v-if="!dataAlready" />
+  <n-spin
+    v-if="!dataAlready"
+    class="loading"
+  />
   <template v-else>
-    <header>
+    <header class="app-header">
       <AppHeader />
     </header>
-    <main>
+    <main class="app-main">
       <RouterView />
     </main>
   </template>
 </template>
 
 <style scoped>
-.n-spin-body {
+.loading {
   display: block;
   text-align: center;
   padding-top: 32px;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.app-main {
+  padding-top: 48px;
 }
 </style>

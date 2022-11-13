@@ -14,7 +14,6 @@ const onBackClick = () => {
   <n-card
     class="app-header"
     embedded
-    :bordered="false"
   >
     <n-button
       v-if="route.name !== 'bill-list'"
@@ -45,6 +44,9 @@ const onBackClick = () => {
   height: 48px;
   text-align: center;
   position: relative;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 
 .app-header :deep(.n-card__content) {

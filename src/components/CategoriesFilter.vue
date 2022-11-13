@@ -115,8 +115,8 @@ const onCompleteClick = () => {
         >
           {{ item.name }}
         </n-checkbox>
-        <span
-          v-for="item in categoryStore.categoriesOfExpenditure.length % 3"
+        <n-checkbox
+          v-for="item in ((3 - (categoryStore.categoriesOfExpenditure.length % 3)) % 3)"
           :key="item"
           class="checkbox-placeholder"
         />
@@ -148,6 +148,11 @@ const onCompleteClick = () => {
         >
           {{ item.name }}
         </n-checkbox>
+        <n-checkbox
+          v-for="item in ((3 - (categoryStore.categoriesOfIncome.length % 3)) % 3)"
+          :key="item"
+          class="checkbox-placeholder"
+        />
       </n-checkbox-group>
 
       <template #footer>
@@ -184,10 +189,6 @@ const onCompleteClick = () => {
 </style>
 
 <style>
-.categories-filter {
-  --checkbox-width: 30%;
-}
-
 .categories-filter .n-drawer-header__main {
   margin: 0 auto;
 }
@@ -201,7 +202,7 @@ const onCompleteClick = () => {
 }
 
 .categories-filter .n-checkbox {
-  width: var(--checkbox-width);
+  width: 30%;
   font-size: 15px;
   padding: 4px;
   margin-top: 12px;
@@ -224,7 +225,7 @@ const onCompleteClick = () => {
 }
 
 .categories-filter .checkbox-placeholder {
-  width: var(--checkbox-width);
+  visibility: hidden;
 }
 
 .categories-filter .n-checkbox-group {
