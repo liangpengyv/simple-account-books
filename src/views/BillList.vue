@@ -219,39 +219,6 @@ const onStatisticsClick = () => {
       </template>
     </n-card>
   </div>
-
-  <n-button
-    class="add-button"
-    circle
-    @click="router.push({ name: 'add-bill' })"
-  >
-    <template #icon>
-      <n-icon size="32">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 512 512"
-        >
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="32"
-            d="M256 112v288"
-          />
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="32"
-            d="M400 256H112"
-          />
-        </svg>
-      </n-icon>
-    </template>
-  </n-button>
 </template>
 
 <style scoped>
@@ -340,14 +307,5 @@ const onStatisticsClick = () => {
 
 .list-content .empty-data {
   padding: 100px 0;
-}
-
-.add-button {
-  width: 48px;
-  height: 48px;
-  box-shadow: 0px 0px 4px var(--n-text-color-disabled);
-  position: fixed;
-  bottom: 32px;
-  right: 24px;
 }
 </style>
