@@ -34,6 +34,8 @@ categoryStore.init().then(() => (dataAlready.value = true))
 
 .app-header {
   position: fixed;
+  min-width: var(--app-min-width);
+  max-width: var(--app-max-width);
   top: 0;
   z-index: 1;
 }

@@ -257,6 +257,8 @@ const onStatisticsClick = () => {
 <style scoped>
 .action-bar {
   position: fixed;
+  min-width: var(--app-min-width);
+  max-width: var(--app-max-width);
   z-index: 1;
   background-color: var(--card-color);
   width: 100%;
