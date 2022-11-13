@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox, NIcon } from 'naive-ui'
+import { NDrawer, NDrawerContent, NButton, NCheckboxGroup, NCheckbox, NIcon, NEl } from 'naive-ui'
 import useCategoryStore from '../stores/category'
 
 const props = defineProps({
@@ -78,15 +78,23 @@ const onCompleteClick = () => {
     筛选<span v-show="props.value.length > 0">...</span>
   </n-button>
 
-  <n-drawer
+  <n-el
     v-model:show="active"
+    :tag="NDrawer"
+    class="categories-filter"
     display-directive="show"
     :auto-focus="false"
     placement="bottom"
-    default-height="90%"
+    default-height="80%"
     @after-leave="onDrawerAfterLeave"
   >
     <n-drawer-content title="选择分类条件">
+      <n-el
+        tag="h4"
+        class="type-title"
+      >
+        支出
+      </n-el>
       <n-checkbox
         :checked="checkedExpenditureList.length === categoryStore.categoriesOfExpenditure.length"
         :indeterminate="checkedExpenditureList.length > 0 && checkedExpenditureList.length < categoryStore.categoriesOfExpenditure.length"
@@ -107,10 +115,19 @@ const onCompleteClick = () => {
         >
           {{ item.name }}
         </n-checkbox>
+        <span
+          v-for="item in categoryStore.categoriesOfExpenditure.length % 3"
+          :key="item"
+          class="checkbox-placeholder"
+        />
       </n-checkbox-group>
 
-      <br>
-
+      <n-el
+        tag="h4"
+        class="type-title"
+      >
+        收入
+      </n-el>
       <n-checkbox
         :checked="checkedIncomeList.length === categoryStore.categoriesOfIncome.length"
         :indeterminate="checkedIncomeList.length > 0 && checkedIncomeList.length < categoryStore.categoriesOfIncome.length"
@@ -133,23 +150,25 @@ const onCompleteClick = () => {
         </n-checkbox>
       </n-checkbox-group>
 
-      <br>
-
-      <n-button
-        :disabled="props.disabled"
-        @click="onResetClick"
-      >
-        重置
-      </n-button>
-      <n-button
-        type="primary"
-        :disabled="props.disabled"
-        @click="onCompleteClick"
-      >
-        完成
-      </n-button>
+      <template #footer>
+        <n-button
+          :disabled="props.disabled"
+          text
+          @click="onResetClick"
+        >
+          重置
+        </n-button>
+        <n-button
+          class="complete-button"
+          round
+          :disabled="props.disabled"
+          @click="onCompleteClick"
+        >
+          完成
+        </n-button>
+      </template>
     </n-drawer-content>
-  </n-drawer>
+  </n-el>
 </template>
 
 <style scoped>
@@ -161,5 +180,65 @@ const onCompleteClick = () => {
 .open-button:focus,
 .open-button:hover {
   color: var(--n-text-color);
+}
+</style>
+
+<style>
+.categories-filter {
+  --checkbox-width: 30%;
+}
+
+.categories-filter .n-drawer-header__main {
+  margin: 0 auto;
+}
+
+.categories-filter .type-title {
+  color: var(--text-color-3);
+}
+
+.categories-filter .type-title:nth-of-type(2) {
+  margin-top: 32px;
+}
+
+.categories-filter .n-checkbox {
+  width: var(--checkbox-width);
+  font-size: 15px;
+  padding: 4px;
+  margin-top: 12px;
+  background-color: var(--button-color-2);
+  border: 1px solid var(--button-color-2);
+  border-radius: 4px;
+  justify-content: center;
+}
+
+.categories-filter .n-checkbox-box-wrapper {
+  display: none;
+}
+
+.categories-filter .n-checkbox--checked {
+  border-color: var(--border-color);
+}
+
+.categories-filter .n-checkbox--checked .n-checkbox__label {
+  color: var(--primary-color);
+}
+
+.categories-filter .checkbox-placeholder {
+  width: var(--checkbox-width);
+}
+
+.categories-filter .n-checkbox-group {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.categories-filter .n-drawer-content .n-drawer-footer {
+  justify-content: space-between;
+}
+
+.categories-filter .complete-button {
+  padding-left: 24px;
+  padding-right: 24px;
 }
 </style>
