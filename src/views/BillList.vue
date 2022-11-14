@@ -62,180 +62,185 @@ const onStatisticsClick = () => {
 </script>
 
 <template>
-  <n-el class="action-bar">
-    <MonthFilter
-      v-model:value="currentMonthAnyTimestamp"
-      :disabled="billDateLoading"
-      @update:value="onUpdateMonthFilter"
-    />
-    <CategoriesFilter
-      v-model:value="currentCategoryFilterList"
-      :disabled="billDateLoading"
-      @update:value="onUpdateCategoriesFilter"
-    />
-  </n-el>
+  <div class="bill-list">
+    <n-el class="action-bar">
+      <MonthFilter
+        v-model:value="currentMonthAnyTimestamp"
+        :disabled="billDateLoading"
+        @update:value="onUpdateMonthFilter"
+      />
+      <CategoriesFilter
+        v-model:value="currentCategoryFilterList"
+        :disabled="billDateLoading"
+        @update:value="onUpdateCategoriesFilter"
+      />
+    </n-el>
 
-  <div class="list-wrapper">
-    <n-card
-      class="list-container"
-      embedded
-      size="small"
-      segmented
-    >
-      <template #header>
-        <div class="list-header">
-          <div class="row row-month">
-            <span class="month-text">
-              <span class="month-number">{{ new Date(currentMonthAnyTimestamp).getMonth() + 1 }}</span>
-              <span>月</span>
-            </span>
-            <n-button
-              secondary
-              type="primary"
-              round
-              size="large"
-              @click="onStatisticsClick"
-            >
-              <template #icon>
-                <n-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    viewBox="0 0 1024 1024"
-                  >
-                    <path
-                      d="M911.5 700.7a8 8 0 0 0-10.3-4.8L840 718.2V180c0-37.6-30.4-68-68-68H252c-37.6 0-68 30.4-68 68v538.2l-61.3-22.3c-.9-.3-1.8-.5-2.7-.5c-4.4 0-8 3.6-8 8V763c0 3.3 2.1 6.3 5.3 7.5L501 910.1c7.1 2.6 14.8 2.6 21.9 0l383.8-139.5c3.2-1.2 5.3-4.2 5.3-7.5v-59.6c0-1-.2-1.9-.5-2.8zM512 837.5l-256-93.1V184h512v560.4l-256 93.1zM660.6 312h-54.5c-3 0-5.8 1.7-7.1 4.4l-84.7 168.8H511l-84.7-168.8a8 8 0 0 0-7.1-4.4h-55.7c-1.3 0-2.6.3-3.8 1c-3.9 2.1-5.3 7-3.2 10.8l103.9 191.6h-57c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76v39h-76c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76V704c0 4.4 3.6 8 8 8h49.9c4.4 0 8-3.6 8-8v-63.5h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8h-76.3v-39h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8H564l103.7-191.6c.6-1.2 1-2.5 1-3.8c-.1-4.3-3.7-7.9-8.1-7.9z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </n-icon>
-              </template>
-              统计
-            </n-button>
-          </div>
-          <div class="row row-total">
-            <span class="total-text">
-              <span>支出</span>
-              <span class="total-number">
-                <span>￥</span>
-                <n-number-animation
-                  :from="0.0"
-                  :to="currentExpenditureTotal"
-                  :precision="2"
-                  show-separator
-                  :duration="300"
-                />
+    <div class="list-wrapper">
+      <n-card
+        class="list-container"
+        embedded
+        size="small"
+        segmented
+      >
+        <template #header>
+          <div class="list-header">
+            <div class="row row-month">
+              <span class="month-text">
+                <span class="month-number">{{ new Date(currentMonthAnyTimestamp).getMonth() + 1 }}</span>
+                <span>月</span>
               </span>
-            </span>
-            <span class="total-text">
-              <span>收入</span>
-              <span class="total-number">
-                <span>￥</span>
-                <n-number-animation
-                  :from="0.0"
-                  :to="currentIncomeTotal"
-                  :precision="2"
-                  show-separator
-                  :duration="300"
-                />
-              </span>
-            </span>
-          </div>
-        </div>
-      </template>
-      <template #default>
-        <div class="list-content">
-          <n-space
-            v-if="billDateLoading"
-            vertical
-          >
-            <n-skeleton
-              v-for="item in 7"
-              :key="item"
-              height="32px"
-              :sharp="false"
-            />
-            <n-skeleton
-              height="30px"
-              width="60%"
-              :sharp="false"
-            />
-          </n-space>
-          <n-list v-else-if="currentList && currentList.length > 0">
-            <n-list-item
-              v-for="(item, index) in currentList"
-              :key="index"
-            >
-              <template #suffix>
-                <n-el>
-                  <n-tag
-                    round
-                    :color="{
-                      borderColor: item.type ? 'var(--error-color)' : 'var(--success-color)',
-                      textColor: item.type ? 'var(--error-color)' : 'var(--success-color)'
-                    }"
-                  >
-                    {{ billType[item.type] }}
-                  </n-tag>
-                  <n-tag
-                    :bordered="false"
-                    :color="{ color: 'transparent' }"
-                  >
-                    <n-ellipsis style="max-width: 140px">
-                      <span>￥</span>
-                      <n-number-animation
-                        :active="false"
-                        :from="item.amount"
-                        :precision="2"
-                        show-separator
-                        :duration="300"
-                      />
-                      <!-- {{ '￥' + item.amount.toFixed(2) }} -->
-                    </n-ellipsis>
-                  </n-tag>
-                </n-el>
-              </template>
-              <n-thing
-                :title="categoryStore.categoriesDict[item.category].name"
-                :description="new Date(parseInt(item.time)).getDate() + '日'"
-              />
-            </n-list-item>
-          </n-list>
-          <n-empty
-            v-else
-            class="empty-data"
-            description="无交易"
-          >
-            <template #extra>
               <n-button
-                size="small"
-                @click="jumpCurrentMonth"
+                secondary
+                type="primary"
+                round
+                size="large"
+                @click="onStatisticsClick"
               >
-                看看本月全部账单
+                <template #icon>
+                  <n-icon>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 1024 1024"
+                    >
+                      <path
+                        d="M911.5 700.7a8 8 0 0 0-10.3-4.8L840 718.2V180c0-37.6-30.4-68-68-68H252c-37.6 0-68 30.4-68 68v538.2l-61.3-22.3c-.9-.3-1.8-.5-2.7-.5c-4.4 0-8 3.6-8 8V763c0 3.3 2.1 6.3 5.3 7.5L501 910.1c7.1 2.6 14.8 2.6 21.9 0l383.8-139.5c3.2-1.2 5.3-4.2 5.3-7.5v-59.6c0-1-.2-1.9-.5-2.8zM512 837.5l-256-93.1V184h512v560.4l-256 93.1zM660.6 312h-54.5c-3 0-5.8 1.7-7.1 4.4l-84.7 168.8H511l-84.7-168.8a8 8 0 0 0-7.1-4.4h-55.7c-1.3 0-2.6.3-3.8 1c-3.9 2.1-5.3 7-3.2 10.8l103.9 191.6h-57c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76v39h-76c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76V704c0 4.4 3.6 8 8 8h49.9c4.4 0 8-3.6 8-8v-63.5h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8h-76.3v-39h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8H564l103.7-191.6c.6-1.2 1-2.5 1-3.8c-.1-4.3-3.7-7.9-8.1-7.9z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </n-icon>
+                </template>
+                统计
               </n-button>
-            </template>
-          </n-empty>
-        </div>
-      </template>
-    </n-card>
+            </div>
+            <div class="row row-total">
+              <span class="total-text">
+                <span>支出</span>
+                <span class="total-number">
+                  <span>￥</span>
+                  <n-number-animation
+                    :from="0.0"
+                    :to="currentExpenditureTotal"
+                    :precision="2"
+                    show-separator
+                    :duration="300"
+                  />
+                </span>
+              </span>
+              <span class="total-text">
+                <span>收入</span>
+                <span class="total-number">
+                  <span>￥</span>
+                  <n-number-animation
+                    :from="0.0"
+                    :to="currentIncomeTotal"
+                    :precision="2"
+                    show-separator
+                    :duration="300"
+                  />
+                </span>
+              </span>
+            </div>
+          </div>
+        </template>
+        <template #default>
+          <div class="list-content">
+            <n-space
+              v-if="billDateLoading"
+              vertical
+            >
+              <n-skeleton
+                v-for="item in 7"
+                :key="item"
+                height="32px"
+                :sharp="false"
+              />
+              <n-skeleton
+                height="30px"
+                width="60%"
+                :sharp="false"
+              />
+            </n-space>
+            <n-list v-else-if="currentList && currentList.length > 0">
+              <n-list-item
+                v-for="(item, index) in currentList"
+                :key="index"
+              >
+                <template #suffix>
+                  <n-el>
+                    <n-tag
+                      round
+                      :color="{
+                        borderColor: item.type ? 'var(--error-color)' : 'var(--success-color)',
+                        textColor: item.type ? 'var(--error-color)' : 'var(--success-color)'
+                      }"
+                    >
+                      {{ billType[item.type] }}
+                    </n-tag>
+                    <n-tag
+                      :bordered="false"
+                      :color="{ color: 'transparent' }"
+                    >
+                      <n-ellipsis style="max-width: 140px">
+                        <span>￥</span>
+                        <n-number-animation
+                          :active="false"
+                          :from="item.amount"
+                          :precision="2"
+                          show-separator
+                          :duration="300"
+                        />
+                      <!-- {{ '￥' + item.amount.toFixed(2) }} -->
+                      </n-ellipsis>
+                    </n-tag>
+                  </n-el>
+                </template>
+                <n-thing
+                  :title="categoryStore.categoriesDict[item.category].name"
+                  :description="new Date(parseInt(item.time)).getDate() + '日'"
+                />
+              </n-list-item>
+            </n-list>
+            <n-empty
+              v-else
+              class="empty-data"
+              description="无交易"
+            >
+              <template #extra>
+                <n-button
+                  size="small"
+                  @click="jumpCurrentMonth"
+                >
+                  看看本月全部账单
+                </n-button>
+              </template>
+            </n-empty>
+          </div>
+        </template>
+      </n-card>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.bill-list {
+  --action-bar-height: 42px;
+}
+
 .action-bar {
-  position: fixed;
-  min-width: var(--app-min-width);
-  max-width: var(--app-max-width);
-  z-index: 1;
   background-color: var(--card-color);
   width: 100%;
+  height: var(--action-bar-height);
   display: flex;
   justify-content: space-between;
   padding: 4px 12px;
 }
 
 .list-wrapper {
-  padding: 80px 16px 24px;
+  height: calc(100vh - var(--app-header-height) - var(--action-bar-height));
+  overflow: auto;
+  padding: 32px 16px 24px;
 }
 
 .list-container {

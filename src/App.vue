@@ -11,21 +11,29 @@ categoryStore.init().then(() => (dataAlready.value = true))
 </script>
 
 <template>
-  <n-spin
-    v-if="!dataAlready"
-    class="loading"
-  />
-  <template v-else>
-    <header class="app-header">
-      <AppHeader />
-    </header>
-    <main class="app-main">
-      <RouterView />
-    </main>
-  </template>
+  <div id="app-root">
+    <n-spin
+      v-if="!dataAlready"
+      class="loading"
+    />
+    <template v-else>
+      <header class="app-header">
+        <AppHeader />
+      </header>
+      <main class="app-main">
+        <RouterView />
+      </main>
+    </template>
+  </div>
 </template>
 
 <style scoped>
+#app-root {
+  --app-header-height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
 .loading {
   display: block;
   text-align: center;
@@ -33,14 +41,11 @@ categoryStore.init().then(() => (dataAlready.value = true))
 }
 
 .app-header {
-  position: fixed;
-  min-width: var(--app-min-width);
-  max-width: var(--app-max-width);
-  top: 0;
-  z-index: 1;
+  height: var(--app-header-height);
 }
 
 .app-main {
-  padding-top: 48px;
+  height: calc(100vh - var(--app-header-height));
+  overflow: auto;
 }
 </style>

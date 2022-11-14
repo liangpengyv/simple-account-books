@@ -63,101 +63,109 @@ const onConfirmAndAgainClick = () => {
 </script>
 
 <template>
-  <div class="wrapper">
-    <n-card
-      class="amount-input"
-      title="交易金额"
-      size="small"
-      :bordered="false"
-      embedded
-    >
-      <n-input-number
-        v-model:value="amountValue"
-        clearable
-        :precision="2"
-        :min="0"
-        :max="99999999999"
-        placeholder="0.00"
+  <div class="add-bill">
+    <div class="main-wrapper">
+      <n-card
+        class="amount-input"
+        title="交易金额"
+        size="small"
+        :bordered="false"
+        embedded
       >
-        <template #prefix>
-          ￥
-        </template>
-      </n-input-number>
-    </n-card>
+        <n-input-number
+          v-model:value="amountValue"
+          clearable
+          :precision="2"
+          :min="0"
+          :max="99999999999"
+          placeholder="0.00"
+        >
+          <template #prefix>
+            ￥
+          </template>
+        </n-input-number>
+      </n-card>
+
+      <n-card
+        size="small"
+        :bordered="false"
+        embedded
+      >
+        <n-radio-group v-model:value="typeValue">
+          <n-radio-button
+            v-for="(value, key) in billType"
+            :key="key"
+            :value="parseInt(key)"
+            :label="value"
+          />
+        </n-radio-group>
+      </n-card>
+
+      <n-card
+        class="category-radio-list"
+        size="small"
+        :bordered="false"
+        embedded
+      >
+        <n-radio-group v-model:value="categoryValue">
+          <n-radio-button
+            v-for="item in categoryList"
+            :key="item.id"
+            :value="item.id"
+            :label="item.name"
+          />
+          <n-radio-button
+            v-for="item in ((3 - (categoryList.length % 3)) % 3)"
+            :key="item"
+            class="radio-placeholder"
+          />
+        </n-radio-group>
+      </n-card>
+
+      <n-date-picker
+        v-model:value="timeValue"
+        class="date-picker"
+        type="date"
+        input-readonly
+        :is-date-disabled="timestamp => timestamp > Date.now()"
+      />
+    </div>
 
     <n-card
+      class="action-bar"
       size="small"
       :bordered="false"
       embedded
     >
-      <n-radio-group v-model:value="typeValue">
-        <n-radio-button
-          v-for="(value, key) in billType"
-          :key="key"
-          :value="parseInt(key)"
-          :label="value"
-        />
-      </n-radio-group>
+      <n-button
+        text
+        :loading="confirmButtonLoading"
+        @click="onConfirmAndAgainClick"
+      >
+        再记一笔
+      </n-button>
+      <n-button
+        class="confirm-button"
+        type="primary"
+        round
+        :loading="confirmButtonLoading"
+        @click="onConfirmClick"
+      >
+        确定添加
+      </n-button>
     </n-card>
-
-    <n-card
-      class="category-radio-list"
-      size="small"
-      :bordered="false"
-      embedded
-    >
-      <n-radio-group v-model:value="categoryValue">
-        <n-radio-button
-          v-for="item in categoryList"
-          :key="item.id"
-          :value="item.id"
-          :label="item.name"
-        />
-        <n-radio-button
-          v-for="item in ((3 - (categoryList.length % 3)) % 3)"
-          :key="item"
-          class="radio-placeholder"
-        />
-      </n-radio-group>
-    </n-card>
-
-    <n-date-picker
-      v-model:value="timeValue"
-      class="date-picker"
-      type="date"
-      input-readonly
-      :is-date-disabled="timestamp => timestamp > Date.now()"
-    />
   </div>
-
-  <n-card
-    class="action-bar"
-    size="small"
-    :bordered="false"
-    embedded
-  >
-    <n-button
-      text
-      :loading="confirmButtonLoading"
-      @click="onConfirmAndAgainClick"
-    >
-      再记一笔
-    </n-button>
-    <n-button
-      class="confirm-button"
-      type="primary"
-      round
-      :loading="confirmButtonLoading"
-      @click="onConfirmClick"
-    >
-      确定添加
-    </n-button>
-  </n-card>
 </template>
 
 <style scoped>
-.wrapper {
-  padding-bottom: 80px;
+.add-bill {
+  --action-bar-height: 58px;
+}
+
+.main-wrapper {
+  height: calc(100vh - var(--app-header-height) - var(--action-bar-height));
+  overflow: auto;
+  padding-bottom: 24px;
 }
 
 .amount-input {
@@ -253,8 +261,7 @@ const onConfirmAndAgainClick = () => {
 }
 
 .action-bar {
-  position: fixed;
-  bottom: 0;
+  height: var(--action-bar-height);
 }
 
 .action-bar :deep(.n-card__content) {

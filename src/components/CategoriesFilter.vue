@@ -85,6 +85,9 @@ const onCompleteClick = () => {
     :auto-focus="false"
     placement="bottom"
     default-height="80%"
+    :trap-focus="false"
+    :block-scroll="false"
+    to="#app-root"
     @after-leave="onDrawerAfterLeave"
   >
     <n-drawer-content title="选择分类条件">
