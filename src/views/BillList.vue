@@ -12,7 +12,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const categoryStore = useCategoryStore()
 
-const billDateLoading = ref(false)
+const billDataLoading = ref(false)
 const currentList = ref(null)
 
 const currentExpenditureTotal = ref(0)
@@ -38,9 +38,9 @@ const updateList = () => {
     endTime: getMonthEnd(currentMonthAnyTimestamp.value).getTime(),
     categoryFilterList: currentCategoryFilterList.value
   }
-  billDateLoading.value = true
+  billDataLoading.value = true
   listService.getList(params).then(res => {
-    billDateLoading.value = false
+    billDataLoading.value = false
     currentList.value = res
     updateCurrentTotal()
   })
@@ -66,12 +66,12 @@ const onStatisticsClick = () => {
     <n-el class="action-bar">
       <MonthFilter
         v-model:value="currentMonthAnyTimestamp"
-        :disabled="billDateLoading"
+        :disabled="billDataLoading"
         @update:value="onUpdateMonthFilter"
       />
       <CategoriesFilter
         v-model:value="currentCategoryFilterList"
-        :disabled="billDateLoading"
+        :disabled="billDataLoading"
         @update:value="onUpdateCategoriesFilter"
       />
     </n-el>
@@ -147,7 +147,7 @@ const onStatisticsClick = () => {
         <template #default>
           <div class="list-content">
             <n-space
-              v-if="billDateLoading"
+              v-if="billDataLoading"
               vertical
             >
               <n-skeleton
@@ -189,9 +189,7 @@ const onStatisticsClick = () => {
                           :from="item.amount"
                           :precision="2"
                           show-separator
-                          :duration="300"
                         />
-                      <!-- {{ '￥' + item.amount.toFixed(2) }} -->
                       </n-ellipsis>
                     </n-tag>
                   </n-el>

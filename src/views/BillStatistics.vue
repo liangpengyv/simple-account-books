@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import MonthFilter from '../components/MonthFilter.vue'
-import { NSkeleton, NEmpty, NNumberAnimation, NTabs, NTabPane, NProgress } from 'naive-ui'
+import { NSkeleton, NEmpty, NNumberAnimation, NRadioGroup, NRadioButton, NProgress, NList, NListItem, NThing, NCard, NSpace, NEllipsis } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import listService from '../service/list.service'
 import { getMonthStart, getMonthEnd } from '../utils/date-time.util'
@@ -13,19 +13,20 @@ const router = useRouter()
 
 const categoryStore = useCategoryStore()
 
-const billDateLoading = ref(false)
+const billDataLoading = ref(false)
 const currentCategoryStatisticsData = ref([])
 
 const currentMonthAnyTimestamp = ref(parseInt(route.query.timestamp))
+const currentShowType = ref(0)
 
 const updateStatisticsList = () => {
   const params = {
     startTime: getMonthStart(currentMonthAnyTimestamp.value).getTime(),
     endTime: getMonthEnd(currentMonthAnyTimestamp.value).getTime()
   }
-  billDateLoading.value = true
+  billDataLoading.value = true
   listService.getCategoryStatisticsData(params).then(res => {
-    billDateLoading.value = false
+    billDataLoading.value = false
     currentCategoryStatisticsData.value = res
   })
 }
@@ -38,60 +39,168 @@ const onUpdateMonthFilter = () => {
 </script>
 
 <template>
-  <MonthFilter
-    v-model:value="currentMonthAnyTimestamp"
-    :disabled="billDateLoading"
-    @update:value="onUpdateMonthFilter"
-  />
+  <div class="bill-statistics">
+    <div class="action-bar">
+      <MonthFilter
+        v-model:value="currentMonthAnyTimestamp"
+        :disabled="billDataLoading"
+        @update:value="onUpdateMonthFilter"
+      />
+    </div>
 
-  <n-skeleton
-    v-if="billDateLoading"
-    text
-    :repeat="5"
-  />
-  <n-tabs
-    v-else
-    type="line"
-    animated
-    display-directive="show"
-  >
-    <n-tab-pane
-      v-for="(data, index) in currentCategoryStatisticsData"
-      :key="index"
-      :name="index"
-      :tab="billType[index]"
-    >
-      ￥
-      <n-number-animation
-        :from="0.0"
-        :to="data.total"
-        :precision="2"
-        :duration="300"
-      />
-      <ul v-if="data.group.length > 0">
-        <li
-          v-for="item in data.group"
-          :key="item.categoryId"
-        >
-          {{ categoryStore.categoriesDict[item.categoryId].name }}
-          ({{ item.size }}笔):
-          【{{ item.total }}】
-          [{{ item.percent.toFixed(2) }}%]
-          <n-progress
-            type="line"
-            :percentage="item.percent"
-            :show-indicator="false"
+    <div class="content-wrapper">
+      <div class="content-header">
+        <span class="header-total">
+          <span>￥</span>
+          <n-number-animation
+            :from="0.0"
+            :to="currentCategoryStatisticsData[currentShowType]?.total"
+            :precision="2"
+            show-separator
+            :duration="300"
           />
-        </li>
-      </ul>
-      <n-empty
-        v-else
-        description="本月暂时没有交易"
-      />
-    </n-tab-pane>
-  </n-tabs>
+        </span>
+        <n-radio-group
+          v-model:value="currentShowType"
+          class="header-type-radio"
+        >
+          <n-radio-button
+            v-for="(value, key) in billType"
+            :key="key"
+            :value="parseInt(key)"
+            :label="value"
+          />
+        </n-radio-group>
+      </div>
+
+      <n-card
+        class="content-list"
+        size="small"
+        embedded
+      >
+        <n-space
+          v-if="billDataLoading"
+          vertical
+        >
+          <n-skeleton
+            v-for="item in 7"
+            :key="item"
+            height="32px"
+            :sharp="false"
+          />
+          <n-skeleton
+            height="30px"
+            width="60%"
+            :sharp="false"
+          />
+        </n-space>
+        <n-list v-else-if="currentCategoryStatisticsData[currentShowType].group.length > 0">
+          <n-list-item
+            v-for="item in currentCategoryStatisticsData[currentShowType].group"
+            :key="item.categoryId"
+          >
+            <template #suffix>
+              <n-ellipsis style="max-width: 120px">
+                <span>￥</span>
+                <n-number-animation
+                  :active="false"
+                  :from="item.total"
+                  :precision="2"
+                  show-separator
+                />
+              </n-ellipsis>
+            </template>
+            <n-thing
+              :title="categoryStore.categoriesDict[item.categoryId].name"
+              :title-extra="'(' + item.percent.toFixed(2) + '%, ' + item.size + '笔)'"
+            >
+              <n-progress
+                type="line"
+                :percentage="item.percent"
+                :show-indicator="false"
+              />
+            </n-thing>
+          </n-list-item>
+        </n-list>
+        <n-empty
+          v-else
+          class="empty-data"
+          description="本月暂时没有交易"
+        />
+      </n-card>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.bill-statistics {
+  --action-bar-height: 42px;
+}
 
+.action-bar {
+  background-color: var(--card-color);
+  width: 100%;
+  height: var(--action-bar-height);
+  padding: 4px 12px;
+}
+
+.content-wrapper {
+  padding: 0 16px 24px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-total {
+  font-size: 24px;
+}
+
+.header-type-radio :deep(.n-radio-button) {
+  border-radius: 16px;
+  border: 1px solid var(--n-button-border-color);
+}
+
+.header-type-radio :deep(.n-radio-button:nth-of-type(n + 2)) {
+  margin-left: 16px;
+}
+
+.header-type-radio :deep(.n-radio-button__state-border) {
+  display: none;
+}
+
+.header-type-radio :deep(.n-radio-group__splitor) {
+  display: none;
+}
+
+.content-list {
+  border-radius: 6px;
+  margin-top: 24px;
+}
+
+.content-list .n-list {
+  background-color: transparent;
+}
+
+.content-list :deep(.n-list-item__suffix) {
+  flex: none;
+  font-size: 16px;
+  width: 120px;
+  text-align: right;
+}
+
+.content-list :deep(.n-thing-header) {
+  justify-content: flex-start;
+}
+
+.content-list :deep(.n-thing-header__extra) {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.content-list .empty-data {
+  padding: 120px 0;
+}
 </style>
