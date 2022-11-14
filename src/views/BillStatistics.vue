@@ -145,6 +145,8 @@ const onUpdateMonthFilter = () => {
 }
 
 .content-wrapper {
+  height: calc(100vh - var(--app-header-height) - var(--action-bar-height));
+  overflow: auto;
   padding: 0 16px 24px;
 }
 
