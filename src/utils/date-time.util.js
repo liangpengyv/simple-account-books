@@ -13,12 +13,24 @@ export const getMonthEnd = (date) => {
 
 export const getPrevMonthCurrent = (date) => {
   const current = new Date(date)
-  return new Date(current.setMonth(current.getMonth() - 1))
+  const currentCopy = new Date(date)
+  const prevMonthCurrent = new Date(current.setMonth(current.getMonth() - 1))
+  if (prevMonthCurrent.getMonth() === currentCopy.getMonth()) {
+    return new Date(currentCopy.setDate(0))
+  } else {
+    return prevMonthCurrent
+  }
 }
 
 export const getNextMonthCurrent = (date) => {
   const current = new Date(date)
-  return new Date(current.setMonth(current.getMonth() + 1))
+  const currentCopy = new Date(date)
+  const nextMonthCurrent = new Date(current.setMonth(current.getMonth() + 1))
+  if ((nextMonthCurrent.getMonth() + 12 - currentCopy.getMonth()) % 12 === 2) {
+    return new Date(nextMonthCurrent.setDate(0))
+  } else {
+    return nextMonthCurrent
+  }
 }
 
 export const getDateStart = (date) => {

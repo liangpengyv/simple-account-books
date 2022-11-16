@@ -1,10 +1,11 @@
 {
   "name": "simple-account-books",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview --port 4173"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "pinia": "^2.0.23",
@@ -13,10 +14,12 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
+    "@vitest/coverage-c8": "^0.25.2",
     "eslint": "^8.27.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-vue": "^9.7.0",
     "naive-ui": "^2.33.5",
-    "vite": "^3.0.9"
+    "vite": "^3.0.9",
+    "vitest": "^0.25.2"
   }
 }
