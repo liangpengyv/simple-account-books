@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'home',
     redirect: { name: 'bill-list' }
   },
   {
@@ -27,6 +28,14 @@ const routes = [
     component: () => import('../views/BillStatistics.vue'),
     meta: {
       title: '收支统计'
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('../views/NotFound.vue'),
+    meta: {
+      title: '404'
     }
   }
 ]
