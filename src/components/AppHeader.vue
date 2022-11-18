@@ -25,6 +25,7 @@ const onAddClick = () => {
       v-if="route.name !== 'bill-list'"
       class="action-button back-button"
       text
+      title="返回"
       @click="onBackClick"
     >
       <n-icon size="20">
@@ -36,6 +37,7 @@ const onAddClick = () => {
       v-if="route.name !== 'add-bill'"
       class="action-button add-button"
       text
+      title="记一笔"
       @click="onAddClick"
     >
       <n-icon size="20">

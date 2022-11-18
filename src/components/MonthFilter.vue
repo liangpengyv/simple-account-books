@@ -30,6 +30,7 @@ const nextMonthCurrent = computed(() => getNextMonthCurrent(props.value).getTime
     <n-button
       class="jump-button"
       text
+      title="上个月"
       :disabled="props.disabled || prevMonthCurrent < EARLIEST_DATE.getTime()"
       @click="emit('update:value', prevMonthCurrent)"
     >
@@ -50,6 +51,7 @@ const nextMonthCurrent = computed(() => getNextMonthCurrent(props.value).getTime
     <n-button
       class="jump-button"
       text
+      title="下个月"
       :disabled="props.disabled || nextMonthCurrent > Date.now()"
       @click="emit('update:value', nextMonthCurrent)"
     >

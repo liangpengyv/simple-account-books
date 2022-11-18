@@ -4,8 +4,11 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run && playwright test",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest watch",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "pinia": "^2.0.23",
@@ -13,8 +16,8 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.28.0",
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vitest/coverage-c8": "^0.25.2",
     "eslint": "^8.27.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-vue": "^9.7.0",
