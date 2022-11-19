@@ -1,8 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import AppHeader from './components/AppHeader.vue'
-import { NSpin } from 'naive-ui'
+import { NSpin, useMessage, useLoadingBar } from 'naive-ui'
 import useCategoryStore from './stores/category'
+import RouterTransition from './components/common/RouterTransition.vue'
+
+// 全局挂载公共工具组件
+window.$message = useMessage()
+window.$loadingBar = useLoadingBar()
 
 // 必要的前提数据初始化
 const dataAlready = ref(false)
@@ -21,7 +26,11 @@ categoryStore.init().then(() => (dataAlready.value = true))
         <AppHeader />
       </header>
       <main class="app-main">
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+          <RouterTransition>
+            <component :is="Component" />
+          </RouterTransition>
+        </RouterView>
       </main>
     </template>
   </div>

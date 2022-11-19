@@ -8,7 +8,7 @@
   <title>简易记账本</title>
 
   <style>
-    .loading {
+    .first-screen-loading {
       margin: 100px auto;
       width: 50px;
       height: 60px;
@@ -16,7 +16,7 @@
       font-size: 10px;
     }
 
-    .loading>div {
+    .first-screen-loading>div {
       background-color: #6be2b6;
       height: 100%;
       width: 6px;
@@ -26,24 +26,24 @@
       animation: stretchDelay 1.2s infinite ease-in-out;
     }
 
-    .loading .rect2 {
+    .first-screen-loading .rect2 {
       -webkit-animation-delay: -1.1s;
       animation-delay: -1.1s;
     }
 
-    .loading .rect3 {
+    .first-screen-loading .rect3 {
       -webkit-animation-delay: -1.0s;
       animation-delay: -1.0s;
     }
 
-    .loading .rect4 {
-      -webkit-animation-delay: -0.9s;
-      animation-delay: -0.9s;
+    .first-screen-loading .rect4 {
+      -webkit-animation-delay: -.9s;
+      animation-delay: -.9s;
     }
 
-    .loading .rect5 {
-      -webkit-animation-delay: -0.8s;
-      animation-delay: -0.8s;
+    .first-screen-loading .rect5 {
+      -webkit-animation-delay: -.8s;
+      animation-delay: -.8s;
     }
 
     @-webkit-keyframes stretchDelay {
@@ -51,7 +51,7 @@
       0%,
       40%,
       100% {
-        -webkit-transform: scaleY(0.4)
+        -webkit-transform: scaleY(.4)
       }
 
       20% {
@@ -64,8 +64,8 @@
       0%,
       40%,
       100% {
-        transform: scaleY(0.4);
-        -webkit-transform: scaleY(0.4);
+        transform: scaleY(.4);
+        -webkit-transform: scaleY(.4);
       }
 
       20% {
@@ -78,7 +78,7 @@
 
 <body>
   <div id="app">
-    <div class="loading">
+    <div class="first-screen-loading">
       <div class="rect1"></div>
       <div class="rect2"></div>
       <div class="rect3"></div>

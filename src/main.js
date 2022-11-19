@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import NaiveProvider from './NaiveProvider.vue'
+import NaiveProvider from './components/common/NaiveProvider.vue'
 import router from './router'
 import pinia from './stores'
 import './assets/main.css'

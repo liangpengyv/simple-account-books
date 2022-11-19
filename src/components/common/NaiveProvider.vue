@@ -1,7 +1,7 @@
 <script setup>
-import App from './App.vue'
+import App from '../../App.vue'
 import { computed } from 'vue'
-import { NConfigProvider, zhCN, dateZhCN, useOsTheme, darkTheme, NGlobalStyle, NMessageProvider } from 'naive-ui'
+import { NConfigProvider, zhCN, dateZhCN, useOsTheme, darkTheme, NGlobalStyle, NMessageProvider, NLoadingBarProvider } from 'naive-ui'
 
 const osThemeRef = useOsTheme()
 const theme = computed(() => osThemeRef.value === 'dark' ? darkTheme : null)
@@ -15,7 +15,9 @@ const theme = computed(() => osThemeRef.value === 'dark' ? darkTheme : null)
   >
     <n-global-style />
     <n-message-provider>
-      <App />
+      <n-loading-bar-provider>
+        <App />
+      </n-loading-bar-provider>
     </n-message-provider>
   </n-config-provider>
 </template>

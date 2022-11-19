@@ -48,6 +48,11 @@ const router = createRouter({
 
 router.beforeEach(to => {
   document.title = to.meta.title + ' - 简易记账本'
+  $loadingBar.start()
+})
+
+router.afterEach(() => {
+  $loadingBar.finish()
 })
 
 export default router
