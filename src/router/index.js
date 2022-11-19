@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import BillList from '../views/BillList.vue'
 
 const routes = [
   {
@@ -9,7 +10,7 @@ const routes = [
   {
     path: '/bill-list',
     name: 'bill-list',
-    component: () => import('../views/BillList.vue'),
+    component: BillList,
     meta: {
       title: '收支'
     }
