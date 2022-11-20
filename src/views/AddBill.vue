@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { NInputNumber, NRadioGroup, NRadioButton, NDatePicker, NButton, NCard } from 'naive-ui'
 import { billType } from '../typing/bill.typing'
 import useCategoryStore from '../stores/category'
@@ -59,6 +59,12 @@ const onConfirmClick = () => {
 const onConfirmAndAgainClick = () => {
   handleSubmit(true)
 }
+
+// hack
+const numberInput = ref(null)
+onMounted(() => {
+  numberInput.value.$el.querySelector('.n-input__input-el').setAttribute('type', 'number')
+})
 </script>
 
 <template>
@@ -72,6 +78,7 @@ const onConfirmAndAgainClick = () => {
         embedded
       >
         <n-input-number
+          ref="numberInput"
           v-model:value="amountValue"
           clearable
           :precision="2"
@@ -183,6 +190,15 @@ const onConfirmAndAgainClick = () => {
 
 .amount-input :deep(.n-input__prefix) {
   font-size: 1.2em;
+}
+
+.amount-input :deep(.n-input__input-el::-webkit-outer-spin-button),
+.amount-input :deep(.n-input__input-el::-webkit-inner-spin-button) {
+  -webkit-appearance: none;
+}
+
+.amount-input :deep(.n-input__input-el[type="number"]) {
+  -moz-appearance: textfield;
 }
 
 .amount-input :deep(.n-input__suffix),
