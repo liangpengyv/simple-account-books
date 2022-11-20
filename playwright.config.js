@@ -11,7 +11,7 @@ module.exports = {
   reporter: 'html',
   use: {
     actionTimeout: 0,
-    baseURL: 'http://localhost:5173',
+    baseURL: process.env.CI ? 'http://localhost:4173' : 'http://localhost:5173',
     trace: 'on-first-retry'
   },
 
