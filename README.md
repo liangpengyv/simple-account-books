@@ -1,21 +1,10 @@
-# simple-account-books
+# 简易记账本
 
-This template should help get you started developing with Vue 3 in Vite.
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/liangpengyv/simple-account-books/Test?logo=githubactions)
 
-## Project Setup
+![Minimum node version](https://img.shields.io/badge/node-%3E%3D%2014.18.0-brightgreen.svg?logo=nodedotjs)
 
-```sh
-npm install
-```
+![Vue.js](https://img.shields.io/badge/Vue-v3.2.38-brightgreen.svg?logo=vuedotjs)
 
-### Compile and Hot-Reload for Development
+![JavaScript Style Guide](https://img.shields.io/badge/ESLint-Standard-brightgreen.svg?logo=eslint)
 
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```

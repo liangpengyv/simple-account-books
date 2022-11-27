@@ -1,6 +1,9 @@
 {
   "name": "simple-account-books",
   "version": "0.0.1",
+  "engines": {
+    "node": ">= 14.18.0"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
