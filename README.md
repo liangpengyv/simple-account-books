@@ -9,12 +9,14 @@
 
 <br>
 
-<img align="right" style="width: 320px; margin-top: 24px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
+<img align="right" style="width: 320px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
 
 
-<h2><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md">👆 XMind 前端面试大作业</a></h2>
-<h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink">▶️ 在线预览</a></h3>
-<h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink">📄 我的简历</a></h3>
+> [**👆XMind 前端面试大作业**](https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md)
+>
+> **预览地址：**[https://simple-account-books.laoliang.ink](https://simple-account-books.laoliang.ink)
+>
+> **我的简历：**[https://resume.laoliang.ink](https://resume.laoliang.ink)
 
 <br><br>
 
