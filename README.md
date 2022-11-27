@@ -9,15 +9,14 @@
 
 <br>
 
-<div style="overflow: hidden;">
+<img align="right" style="width: 320px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
 
-  <img align="right" style="width: 320px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
 
-  <h2><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md" target="_blank">👆XMind 前端面试大作业</a></h2>
-  <h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink" target="_blank">▶️预览地址</a></h3>
-  <h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink" target="_blank">📄我的简历</a></h3>
+<h2><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md" target="_blank">👆XMind 前端面试大作业</a></h2>
+<h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink" target="_blank">▶️预览地址</a></h3>
+<h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink" target="_blank">📄我的简历</a></h3>
 
-  <br><br>
+<br><br>
 
 - [一、介绍](#一介绍)
   - [1.1 功能特性](#11-功能特性)
@@ -36,7 +35,7 @@
   - [2.3 构建](#23-构建)
   - [2.4 测试](#24-测试)
 
-</div>
+<div style="clear: both;"></div>
 
 ## 一、介绍
 
