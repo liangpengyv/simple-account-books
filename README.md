@@ -11,12 +11,14 @@
 
 <div style="overflow: hidden;">
 
-  <img style="width: 320px; float: right" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
+  <div style="width: 320px; float: right;">
+    <img src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
+  </div>
 
-  <h2 style=""><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md">👆XMind 前端面试大作业</a></h2>
-  <h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink">▶️预览地址</a></h3>
-  <h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink">📄我的简历</a></h3>
-
+  <h2 ><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md" target="_blank">👆XMind 前端面试大作业</a></h2>
+  <h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink" target="_blank">▶️预览地址</a></h3>
+  <h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink" target="_blank">📄我的简历</a></h3>
+  
   <br><br>
 
 - [一、介绍](#一介绍)
