@@ -9,7 +9,7 @@
 
 <br>
 
-<img align="right" style="width: 320px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
+<img align="right" style="width: 320px; margin-top: 24px;" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
 
 
 <h2><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md">👆 XMind 前端面试大作业</a></h2>
