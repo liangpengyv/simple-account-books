@@ -7,15 +7,17 @@
   <a href="https://standardjs.com/readme-zhcn.html"><img src="https://img.shields.io/badge/eslint-standard-brightgreen.svg?logo=eslint" alt="JavaScript Style Guide"></a>
 </p>
 
-> [**👆XMind 前端面试大作业**](https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md)
->
-> **预览地址：**[https://simple-account-books.laoliang.ink](https://simple-account-books.laoliang.ink)
->
-> **我的简历：**[https://resume.laoliang.ink](https://resume.laoliang.ink)
+<br>
 
-<p align="center">
-  <img src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
-</p>
+<div style="overflow: hidden;">
+
+  <img style="width: 320px; float: right" src="https://simple-account-books.laoliang.ink/images/demo.gif" alt="demo">
+
+  <h2 style=""><a href="https://github.com/xmindltd/hiring/blob/master/frontend-1/README.md">👆XMind 前端面试大作业</a></h2>
+  <h3 style="text-indent: 2em;"><a href="https://simple-account-books.laoliang.ink">▶️预览地址</a></h3>
+  <h3 style="text-indent: 2em;"><a href="https://resume.laoliang.ink">📄我的简历</a></h3>
+
+  <br><br>
 
 - [一、介绍](#一介绍)
   - [1.1 功能特性](#11-功能特性)
@@ -34,6 +36,7 @@
   - [2.3 构建](#23-构建)
   - [2.4 测试](#24-测试)
 
+</div>
 
 ## 一、介绍
 
