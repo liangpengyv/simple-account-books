@@ -193,7 +193,7 @@ manualChunks: {
 
 <img style="width: 48px; border-radius: 4px;" src="./readme.assets/github-actions.png" alt="GitHub Actions">
 
-使用 GitHub Action 在每次 `push` 代码时自动运行项目测试，针对 **开发** 与 **CI** 环境，输出不同形式的测试报告，便于场景应用。
+使用 [GitHub Action](https://github.com/liangpengyv/simple-account-books/actions/workflows/test.yml) 在每次 `push` 代码时自动运行项目测试，针对 **开发** 与 **CI** 环境，输出不同形式的测试报告，便于场景应用。
 
 - GitHub Action 配置：[test.yml](./.github/workflows/test.yml)
 - vitest UT 配置：[vitest.config.js](./vitest.config.js)
