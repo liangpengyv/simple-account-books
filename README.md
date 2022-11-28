@@ -20,30 +20,27 @@
 
 <br><br>
 
-- [一、介绍](#一介绍)
-  - [1.1 功能特性](#11-功能特性)
-    - [1.1.1 模块速览](#111-模块速览)
-    - [1.1.2 一些加花](#112-一些加花)
-  - [1.2 实现过程](#12-实现过程)
-    - [1.2.1 技术选型](#121-技术选型)
-    - [1.2.2 项目搭建](#122-项目搭建)
-    - [1.2.3 必要的测试](#123-必要的测试)
-    - [1.2.4 产物优化](#124-产物优化)
-    - [1.2.5 CI/CD](#125-cicd)
-    - [1.2.6 问题与解决方案](#126-问题与解决方案)
-- [二、运行](#二运行)
-  - [2.1 环境准备](#21-环境准备)
-  - [2.2 开始](#22-开始)
-  - [2.3 构建](#23-构建)
-  - [2.4 测试](#24-测试)
+- [1 功能特性](#1-功能特性)
+  - [1.1 模块速览](#11-模块速览)
+  - [1.2 一些加花](#12-一些加花)
+- [2 实现过程](#2-实现过程)
+  - [2.1 技术选型](#21-技术选型)
+  - [2.2 项目搭建](#22-项目搭建)
+  - [2.3 必要的测试](#23-必要的测试)
+  - [2.4 产物优化](#24-产物优化)
+  - [2.5 CI/CD](#25-cicd)
+  - [2.6 问题与解决方案](#26-问题与解决方案)
+- [3 运行](#3-运行)
+  - [3.1 环境准备](#31-环境准备)
+  - [3.2 开始](#32-开始)
+  - [3.3 构建](#33-构建)
+  - [3.4 测试](#34-测试)
 
 <br><br>
 
-# 一、介绍
+# 1 功能特性
 
-## 1.1 功能特性
-
-### 1.1.1 模块速览
+## 1.1 模块速览
 
 - 1️⃣ 账单列表展示
 - 2️⃣ 月份筛选
@@ -52,16 +49,16 @@
 - 5️⃣ 对分类二次筛选
 - 6️⃣ 所选月份账单分类统计排序
 
-### 1.1.2 一些加花
+## 1.2 一些加花
 
 - 🎉 添加首屏 Loading，缓解网络延迟等待焦虑
 - 🎉 数据加载骨架屏，准确传达应用状态
 - 🎉 添加路由过渡动画，页面跳转更加平滑
 - 🎉 支持跟随系统设置的明暗主题自动切换
 
-## 1.2 实现过程
+# 2 实现过程
 
-### 1.2.1 技术选型
+## 2.1 技术选型
 
 浏览 Xmind JD，针对前端，有 Vue.js 技术栈需求，借着 Vue3 正式版发布不久，除关注一些新特性外，尚未实践应用过，遂选择 [Vue3](https://cn.vuejs.org/) 作为开发框架。
 
@@ -69,7 +66,7 @@
 
 对比多款支持 Vue3 的 UI 库，选择风格俏皮的 [Naive UI](https://www.naiveui.com/zh-CN/os-theme)。
 
-### 1.2.2 项目搭建
+## 2.2 项目搭建
 
 **划分模块** 到各个文件夹：
 
@@ -132,7 +129,7 @@ module.exports = {
 
 👍 这样，不同的协作者，使用 VSCode 打开项目时，会收到一致的插件安装提示，有助于统一协作者之间的开发环境。
 
-### 1.2.3 必要的测试
+## 2.3 必要的测试
 
 **单元测试**:
 
@@ -146,7 +143,7 @@ module.exports = {
 
 针对模拟仿真的端到端测试，这里选用个人熟悉的 [Playwright](https://playwright.dev/)，它支持所有现代渲染引擎，支持本地和 CI 进行测试，有着易用的 API。
 
-### 1.2.4 产物优化
+## 2.4 产物优化
 
 **三方组件按需引入**：
 
@@ -190,7 +187,7 @@ manualChunks: {
 }
 ```
 
-### 1.2.5 CI/CD
+## 2.5 CI/CD
 
 **GitHub Action 自动运行测试**：
 
@@ -216,7 +213,7 @@ manualChunks: {
   <img style="width: 240px;" src="https://oneclick.amplifyapp.com/button.svg" alt="AWS Amplify Button">
 </a>
 
-### 1.2.6 问题与解决方案
+## 2.6 问题与解决方案
 
 **package-lock.json 版本控制冲突问题**：
 
@@ -267,29 +264,100 @@ eslint.format.enable: true # 启用 ESLint 作为验证文件的格式化程序
 
 👏 所有协作者，又统一环境了。
 
-# 二、运行
+# 3 运行
 
-## 2.1 环境准备
+## 3.1 环境准备
 
+- git
 - node（注：>= 14.18.0）
 - npm
 
-## 2.2 开始
+## 3.2 开始
 
-- git clone
-- cd simple-account-books
-- npm install
-- npm run dev
+克隆代码：
 
-## 2.3 构建
+```sh
+git clone https://github.com/liangpengyv/simple-account-books.git
+```
 
-- npm run build
-- npm run preview
+安装依赖：
 
-## 2.4 测试
+```sh
+cd simple-account-books
+npm install
+```
 
-- npm run test
-- npm run test:unit
-- npm run test:unit:watch
-- npm run test:e2e
-- npm run test:e2e:headed
+启动开发调试：
+
+```sh
+npm run dev
+```
+
+此时，可以在 `http://localhost:5173` 打开开发环境下的 web 应用。
+
+## 3.3 构建
+
+开始编译打包：
+
+```sh
+npm run build
+```
+
+产物输出在 `dist` 文件夹下。
+
+本地预览打包产物：
+
+```sh
+npm run preview
+```
+
+将在本地启动一个开发服务器，运行 `dist` 目录下的构建产物，我们打开 `http://localhost:4173` 预览打包产物。
+
+## 3.4 测试
+
+运行所有测试：（包括：Unit Test & e2e Test）
+
+```sh
+npm run test
+```
+
+构建日志将输出在终端中。
+
+运行单元测试：
+
+```sh
+npm run test:unit
+```
+
+在浏览模式下运行单元测试：
+
+```sh
+npm run test:unit:watch
+```
+
+任务将暂停在终端会话中，并监听代码更改，并在更改时将重新运行测试。这适用于 编写单元测试 期间，方便实时查看结果和调试。
+
+> 更多命令详见：[【Command Line Interface | Vitest】](https://cn.vitest.dev/guide/cli.html)
+>
+> 安装 IDE 插件：[【IDE Integrations | Vitest】](https://cn.vitest.dev/guide/ide.html)
+
+运行 e2e 测试：
+
+```sh
+npm run test:e2e
+```
+
+这将在浏览器无头模式下，后台运行所有 e2e 测试用例，这将获得较快的速度。
+
+在有头模式下运行 e2e 测试：
+
+```sh
+npm run test:e2e:headed
+```
+
+这将在浏览器有头模式下运行测试，我们将看到 本地 Chrome 程序（根据项目 playwright.config.js 配置）被启动，并自动根据测试用例代码执行相关动作。
+
+> 更多命令详见：[【Command line | Playwright】](https://playwright.dev/docs/test-cli)
+>
+> 安装 IDE 插件：[【Getting started - VS Code | Playwright】](https://playwright.dev/docs/getting-started-vscode)
+
