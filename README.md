@@ -29,7 +29,7 @@
   - [2.3 必要的测试](#23-必要的测试)
   - [2.4 产物优化](#24-产物优化)
   - [2.5 CI/CD](#25-cicd)
-  - [2.6 问题与解决方案](#26-问题与解决方案)
+  - [2.6 问题\&解决](#26-问题解决)
 - [3 运行](#3-运行)
   - [3.1 环境准备](#31-环境准备)
   - [3.2 开始](#32-开始)
@@ -62,32 +62,32 @@
 
 浏览 Xmind JD，针对前端，有 Vue.js 技术栈需求，借着 Vue3 正式版发布不久，除关注一些新特性外，尚未实践应用过，遂选择 [Vue3](https://cn.vuejs.org/) 作为开发框架。
 
-分析需求，应用需要拆分多个页面、页面间拥有共享数据需求，遂选择 [Pinia](https://pinia.vuejs.org/zh/)、[VueRouter](https://router.vuejs.org/zh/) 库加入项目依赖。
+分析需求，应用需要 多个页面、页面间共享数据，遂选择 [VueRouter](https://router.vuejs.org/zh/)、[Pinia](https://pinia.vuejs.org/zh/) 加入项目依赖。
 
 对比多款支持 Vue3 的 UI 库，选择风格俏皮的 [Naive UI](https://www.naiveui.com/zh-CN/os-theme)。
 
 ## 2.2 项目搭建
 
-**划分模块** 到各个文件夹：
+**划分模块**：
 
 ```sh
-├─e2e             # e2e测试
+├─e2e           # e2e测试
 └─src
-    ├─assets      # 资源文件
-    ├─components  # 业务组件
-    │  ├─common   # 公共组件
-    │  └─icons    # 图标
-    ├─router      # 路由配置
-    ├─service     # 网络请求
-    ├─stores      # 共享数据
-    ├─typing      # 类型封装
-    ├─utils       # 工具函数
-    ├─views       # 路由组件
-    ├─App.vue     # 根组件
-    └─main.js     # 应用入口
+  ├─assets      # 资源文件
+  ├─components  # 业务组件
+  │  ├─common   # 公共组件
+  │  └─icons    # 图标
+  ├─router      # 路由配置
+  ├─service     # 网络请求
+  ├─stores      # 共享数据
+  ├─typing      # 类型封装
+  ├─utils       # 工具函数
+  ├─views       # 路由组件
+  ├─App.vue     # 根组件
+  └─main.js     # 应用入口
 ```
 
-**代码规范** 使用 JavaScript Standard Style，继承 vue3 recommended，生效 `.vue` 文件的 `script` 代码块 及 `.js` 文件。
+**代码规范** 使用 [JavaScript Standard Style](https://standardjs.com/readme-zhcn.html)，继承 vue3 recommended，生效 `.vue` 文件的 `script` 代码块，以及 `.js` 文件。
 
 ```javascript
 // .eslintrc.js
@@ -111,7 +111,7 @@ module.exports = {
 }
 ```
 
-这需要在 VSCode 中安装 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 插件。
+> 这需要在 VSCode 中安装 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 插件。
 
 因此，我们将插件安装推荐，添加进工作区：
 
@@ -127,7 +127,7 @@ module.exports = {
 }
 ```
 
-👍 这样，不同的协作者，使用 VSCode 打开项目时，会收到一致的插件安装提示，有助于统一协作者之间的开发环境。
+👍 这样，不同的协作者，使用 VSCode 打开项目时，会收到一致的插件安装提示，有助于统一开发环境。
 
 ## 2.3 必要的测试
 
@@ -147,7 +147,7 @@ module.exports = {
 
 **三方组件按需引入**：
 
-按需引入第三方组件方式，支持 TreeShaking，缩小打包产物
+按需引入第三方组件方式，支持 TreeShaking，缩小打包产物。
 
 ```javascript
 // e.g.
@@ -156,7 +156,7 @@ import { NButton } from 'naive-ui'
 
 **路由懒加载**：
 
-除首页外，其他路由页面使用懒加载，使打包首屏资源进一步降低
+除首页外，其他路由页面使用懒加载，使打包首屏资源进一步降低。
 
 ```javascript
 // e.g.
@@ -174,8 +174,8 @@ component: () => import('../views/AddBill.vue')
 **优化**：
 
 - ✅ 合并很少变动的 `vue` 三件套依赖包
-- ✅ 拆分 `naive-ui` 依赖的，同样很少变动的 `date-fns`、`lodash-es` 等依赖包，并合并为一个 chunk
-- ✅ 拆分 `naive-ui` 自身自己模块部分，这一部分在项目按需引入新组件时，时常变动，单独作为一个 chunk
+- ✅ 拆分 `naive-ui` 依赖的、同样很少变动的 `date-fns`、`lodash-es` 等，并合并为一个 chunk
+- ✅ 拆分 `naive-ui` 自身组件模块部分，这一部分在项目按需引入新组件时，时常变动，单独作为一个 chunk
 - 👍 以上拆分与合并的同时，兼顾 **“chunk 数”** 和 **“单个 chunk 体积”** 的 **平衡**
 
 ```javascript
@@ -193,7 +193,7 @@ manualChunks: {
 
 <img style="width: 48px; border-radius: 4px;" src="./readme.assets/github-actions.png" alt="GitHub Actions">
 
-使用 GitHub Action 在每次 `push` 代码时自动运行项目测试，针对 **开发** 与 **CI** 环境，输出不同形式测试数据，便于场景应用。
+使用 GitHub Action 在每次 `push` 代码时自动运行项目测试，针对 **开发** 与 **CI** 环境，输出不同形式的测试报告，便于场景应用。
 
 - GitHub Action 配置：[test.yml](./.github/workflows/test.yml)
 - vitest UT 配置：[vitest.config.js](./vitest.config.js)
@@ -213,7 +213,7 @@ manualChunks: {
   <img style="width: 240px;" src="https://oneclick.amplifyapp.com/button.svg" alt="AWS Amplify Button">
 </a>
 
-## 2.6 问题与解决方案
+## 2.6 问题&解决
 
 **package-lock.json 版本控制冲突问题**：
 
@@ -241,7 +241,7 @@ engine-strict=true
 - 😦 手动逐条修改 Prettier 的配置与 ESLint 冲突的规则
 - 😦 使用 [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则
 - 😦 使用 [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 将 Prettier 作为 ESLint 规则运行，并将差异报告为单个 ESLint 问题
-- 😦 接在 ESLint 配置中使用 Prettier 规则集
+- 😦 直接在 ESLint 配置中使用 Prettier 规则集
 
 以上解决方法，
 
@@ -250,9 +250,9 @@ engine-strict=true
 - 🤷 要么 忍受通篇碍眼的错误警告
 - 🤷 要么 背离初衷，完全放弃 自定义的 ESLint 规则，转而使用 Prettier 规则集
 
-在不远的曾经，短暂的使用过 VSCode 编辑 带有 ESLint 配置的项目，记得当时 ESLint 只有代码检测功能，没有格式化功能。当时就觉得这很劝退，也因此除了打开临时文本文件，几乎没有使用 VSCode 开发过项目。
+在不远的曾经，短暂的使用过 VSCode 编辑 带有 ESLint 配置的项目，记得当时 ESLint 插件 只有代码检测功能，没有格式化功能。当时就觉得这很劝退，也因此除了打开临时文本文件，几乎没有使用 VSCode 开发过项目。
 
-然而，这次再次打开 [ESLint VSCode 插件官网](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)，惊讶的发现，它已经不知道什么时候，支持了使用项目配置的 ESLint 规则进行格式化代码。
+然而，这次再次打开 [ESLint VSCode 插件官网](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)，惊讶的发现，不知道什么时候，它已经支持使用项目配置的 ESLint 规则，进行格式化代码了。
 
 只不过，当前还需要手动激活启用：
 
@@ -274,20 +274,20 @@ eslint.format.enable: true # 启用 ESLint 作为验证文件的格式化程序
 
 ## 3.2 开始
 
-克隆代码：
+**克隆代码**：
 
 ```sh
 git clone https://github.com/liangpengyv/simple-account-books.git
 ```
 
-安装依赖：
+**安装依赖**：
 
 ```sh
 cd simple-account-books
 npm install
 ```
 
-启动开发调试：
+**启动开发调试**：
 
 ```sh
 npm run dev
@@ -297,7 +297,7 @@ npm run dev
 
 ## 3.3 构建
 
-开始编译打包：
+**开始编译打包**：
 
 ```sh
 npm run build
@@ -305,17 +305,17 @@ npm run build
 
 产物输出在 `dist` 文件夹下。
 
-本地预览打包产物：
+**本地预览打包产物**：
 
 ```sh
 npm run preview
 ```
 
-将在本地启动一个开发服务器，运行 `dist` 目录下的构建产物，我们打开 `http://localhost:4173` 预览打包产物。
+将在本地启动一个开发服务器，运行 `dist` 目录下的构建产物，我们可以打开 `http://localhost:4173` 预览打包产物。
 
 ## 3.4 测试
 
-运行所有测试：（包括：Unit Test & e2e Test）
+**运行所有测试**：（包括：Unit Test & e2e Test）
 
 ```sh
 npm run test
@@ -323,25 +323,25 @@ npm run test
 
 构建日志将输出在终端中。
 
-运行单元测试：
+**运行单元测试**：
 
 ```sh
 npm run test:unit
 ```
 
-在浏览模式下运行单元测试：
+**在浏览模式下运行单元测试**：
 
 ```sh
 npm run test:unit:watch
 ```
 
-任务将暂停在终端会话中，并监听代码更改，并在更改时将重新运行测试。这适用于 编写单元测试 期间，方便实时查看结果和调试。
+任务将暂停在终端会话中，并监听代码更改，并在更改时重新运行测试。这适用于 编写单元测试 期间，方便实时查看结果和调试。
 
 > 更多命令详见：[【Command Line Interface | Vitest】](https://cn.vitest.dev/guide/cli.html)
 >
 > 安装 IDE 插件：[【IDE Integrations | Vitest】](https://cn.vitest.dev/guide/ide.html)
 
-运行 e2e 测试：
+**运行 e2e 测试**：
 
 ```sh
 npm run test:e2e
@@ -349,13 +349,13 @@ npm run test:e2e
 
 这将在浏览器无头模式下，后台运行所有 e2e 测试用例，这将获得较快的速度。
 
-在有头模式下运行 e2e 测试：
+**在有头模式下运行 e2e 测试**：
 
 ```sh
 npm run test:e2e:headed
 ```
 
-这将在浏览器有头模式下运行测试，我们将看到 本地 Chrome 程序（根据项目 playwright.config.js 配置）被启动，并自动根据测试用例代码执行相关动作。
+这将在浏览器有头模式下运行测试，我们将看到 本地 Chrome 程序（根据项目 [playwright.config.js](./playwright.config.js) 配置设定）被启动，并自动根据测试用例代码执行相关动作。
 
 > 更多命令详见：[【Command line | Playwright】](https://playwright.dev/docs/test-cli)
 >
