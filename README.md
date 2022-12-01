@@ -187,6 +187,28 @@ manualChunks: {
 }
 ```
 
+**精简 Vue 核心包**
+
+Vue3 虽然推出了新的 Composition API，但为了兼容 Vue2 的经典写法，仍然对 Options API 提供了支持。
+
+然而，若我们可以确定项目中没有使用 Options API，可以选择在构建时，配置其功能标志为 `false`，从而使最终的产物获得进一步的 Tree-Shaking。
+
+vite 中的配置像下面这样：
+
+```javascript
+export default defineConfig({
+  define: {
+    __VUE_OPTIONS_API__: false
+  }
+  // ...
+})
+
+```
+
+最终产物获得约 ↓3k 的收益（gzip前）。
+
+更多内容参见：[GitHub - vuejs/core](https://github.com/vuejs/core/blob/main/packages/vue/README.md)
+
 ## 2.5 CI/CD
 
 **GitHub Action 自动运行测试**：
